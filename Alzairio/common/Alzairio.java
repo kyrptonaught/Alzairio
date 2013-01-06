@@ -12,7 +12,6 @@ import Alzairio.common.Block.Blockaconitum;
 import Alzairio.common.Block.Blockalzadirt;
 import Alzairio.common.Block.Blockalzairian;
 import Alzairio.common.Block.BlockalzairianOre;
-import Alzairio.common.Block.Blockalzairio_portal;
 import Alzairio.common.Block.Blockalzastone;
 import Alzairio.common.Block.Blockcloudus;
 import Alzairio.common.Block.Blocklauncher;
@@ -21,15 +20,14 @@ import Alzairio.common.Block.Blockspeedy;
 import Alzairio.common.Block.BlockspeedyS;
 import Alzairio.common.Block.Blocktrampoline;
 import Alzairio.common.Handlers.PacketHandler;
-import Alzairio.common.Handlers.WorldGenHandler;
 import Alzairio.common.Items.ItemIscaffold;
 import Alzairio.common.Items.Itemdirtwand;
-import Alzairio.common.Items.Itemteleporter;
 import Alzairio.common.Proxys.CommonProxyAlzairio;
 import Alzairio.common.Tabs.Tabalzairio;
+import Alzairio.common.dimension.Blockalzairio_portal;
+import Alzairio.common.dimension.Itemteleporter;
+import Alzairio.common.dimension.WorldProviderAlzairio;
 import Alzairio.common.world.BiomeGenAlzairio;
-import Alzairio.common.world.BiomeGenAlzairio2;
-import Alzairio.common.world.WorldProviderAlzairio;
 import Alzairio.common.world.WorldTypeAlzairio;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.Init;
@@ -54,21 +52,21 @@ public class Alzairio {
 	public static Block alzastone;
     public static Block cloudus;
     public static Block aconitum;
-   public static Block speedy;
-   public static Block speedyS;
-   public static Block trampoline;
-   public static Item dirtwand;
-   public static Block scaffold;
-   public static Item Iscaffold;
-   public static Block launcher;
-   public static int dimension = 20;
-  public static Item teleporter;
-   // public static final Achievement cloudusAchieve = new Achievement(2001, "Cloudus", 1, -2, cloudus, AchievementList.openInventory).registerAchievement();
+    public static Block speedy;
+    public static Block speedyS;
+    public static Block trampoline;
+    public static Item dirtwand;
+    public static Block scaffold;
+    public static Item Iscaffold;
+    public static Block launcher;
+    public static int dimension = 20;
+    public static Item teleporter;
+  //public static final Achievement cloudusAchieve = new Achievement(2001, "Cloudus", 1, -2, cloudus, AchievementList.openInventory).registerAchievement();
      public static Block alzairianOre;
      public static BiomeGenBase AlzairioBiome;
      public static BiomeGenBase AlzairioBiome2;
      public static final WorldType AlzairioWorld = new WorldTypeAlzairio(3, "Alzairio");
-   
+     public static int Taint;
      @PreInit
 	public void preInit(FMLPreInitializationEvent event) {
 		Configuration config = new Configuration(
@@ -142,18 +140,11 @@ public class Alzairio {
 	teleporter = new Itemteleporter(3014).setItemName("teleporter").setIconIndex(9);
 	GameRegistry.registerItem(teleporter,"teleporter");
 	LanguageRegistry.addName(teleporter,"Teleporter");
-	//.registerModEntity(Entitycrusher.class, "crusher", 1, this, 80, 3, true);
-	// EntityRegistry.addSpawn(Entitycrusher.class, 10, 2, 4, EnumCreatureType.monster, Alzairio.AlzairioBiome);
-	// LanguageRegistry.instance().addStringLocalization("entity.Tutorial_Tutorialmod.Tutorial.name", "crusher");
-	 //registerEntityEgg(Entitycrusher.class, 0xffffff, 0x000000);
-			
+		
 	  DimensionManager.registerProviderType(dimension, WorldProviderAlzairio.class, false); 
 	  DimensionManager.registerDimension(dimension, dimension); 
 	 
 	  AlzairioBiome = new BiomeGenAlzairio(30).setColor(0xffffff).setBiomeName("Alzairio Biome").setTemperatureRainfall(1.2F, 0.9F).setMinMaxHeight(0.1F, 0.6F);
       GameRegistry.addBiome(AlzairioBiome);
-;	  AlzairioBiome2 = new BiomeGenAlzairio2(31).setColor(0xffffff).setBiomeName("Alzairio Biome 2").setTemperatureRainfall(1.2F, 0.9F).setMinMaxHeight(0.1F, 0.6F);
-      GameRegistry.addBiome(AlzairioBiome2);
-       GameRegistry.registerWorldGenerator(new WorldGenHandler());
-       }
+	   }
 }

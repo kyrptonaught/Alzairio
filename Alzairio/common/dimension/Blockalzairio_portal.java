@@ -1,9 +1,11 @@
-package Alzairio.common.Block;
+package Alzairio.common.dimension;
 
 import java.util.Random;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPortal;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.world.World;
 import Alzairio.common.Alzairio;
 import Alzairio.common.Proxys.CommonProxyAlzairio;
@@ -35,6 +37,25 @@ public void randomDisplayTick(World par1World, int par2, int par3, int par4, Ran
     double var16 = 0.0D;
 	par1World.spawnParticle("magicCrit", var6, var8, var10, var12, var14, var16);
 }
+public void onEntityCollidedWithBlock(World par1World, int par2, int par3, int par4, Entity par5Entity)
+{
+ if (par5Entity.ridingEntity == null && par5Entity.riddenByEntity == null)
+ {
+  if (par5Entity instanceof EntityPlayerMP)
+  {
+   EntityPlayerMP thePlayer = (EntityPlayerMP) par5Entity;
+   if (par5Entity.dimension != Alzairio.dimension)
+   {
+    thePlayer.mcServer.getConfigurationManager().transferPlayerToDimension(thePlayer, Alzairio.dimension, new TeleporterAlzairio(thePlayer.mcServer.worldServerForDimension(Alzairio.dimension)));
+   }
+   else
+   {
+    thePlayer.mcServer.getConfigurationManager().transferPlayerToDimension(thePlayer, 0, new TeleporterAlzairio(thePlayer.mcServer.worldServerForDimension(0)));
+   }
+  }
+ }
+}
+
 @Override
 public boolean tryToCreatePortal(World par1World, int par2, int par3, int par4)
 {

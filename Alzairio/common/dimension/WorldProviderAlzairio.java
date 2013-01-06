@@ -1,4 +1,4 @@
-package Alzairio.common.world;
+package Alzairio.common.dimension;
 
 import net.minecraft.world.WorldProvider;
 import net.minecraft.world.biome.WorldChunkManagerHell;

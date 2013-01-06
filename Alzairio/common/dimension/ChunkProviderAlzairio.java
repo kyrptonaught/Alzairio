@@ -1,4 +1,4 @@
-package Alzairio.common.world;
+package Alzairio.common.dimension;
 
 import java.util.List;
 import java.util.Random;
