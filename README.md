@@ -1,4 +1,5 @@
-Package Alzairio.common;
+Package github.kyrptonaught.Alzairio;
+
 import github;
 
 public class Forge_Alzairio_mod extends github{
@@ -7,7 +8,7 @@ public class Forge_Alzairio_mod extends github{
 
 }
 
-public static To install() {
+public static  install() {
 system.out.print("
 First install the latest forge.(dont use the recomended build) {Download from files.minecraftforge.net}
 ")
