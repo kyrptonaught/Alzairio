@@ -20,7 +20,16 @@ public class WorldProviderAlzairio extends WorldProvider{
 	        return new ChunkProviderAlzairio(worldObj, worldObj.getSeed(), true);
 	    }
 	 
-	 public boolean canRespawnHere()
+	    public float setSunSize()
+	    {
+	        return 2.0F;
+	    }
+	 
+	    public float setMoonSize()
+	    {
+	        return 0.5F;
+	    }
+	    public boolean canRespawnHere()
 	    {
 	        return true;
 	    }

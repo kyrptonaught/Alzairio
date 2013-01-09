@@ -5,7 +5,7 @@ import Alzairio.common.Alzairio;
 
 public class CommonProxyAlzairio {
 	
-	public static String alzairio_png = "/alzairio/textures/alzairio.png";
+	public static String alzairio_png = "/Alzairio/textures/alzairio.png";
 	public void registerRenderThings()
 {
 
