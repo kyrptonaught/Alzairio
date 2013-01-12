@@ -4,7 +4,7 @@ import java.util.Random;
 
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeGenBase;
-import Alzairio.common.Alzairio;
+
 
 public class BiomeGenAlzairio extends BiomeGenBase
 {
@@ -13,8 +13,8 @@ public class BiomeGenAlzairio extends BiomeGenBase
         super(par1);
         this .spawnableMonsterList.clear();
         this.spawnableCreatureList.clear();
-        this.topBlock = (byte)Alzairio.alzadirt.blockID;
-        this.fillerBlock = (byte)Alzairio.alzastone.blockID;
+        this.topBlock = (byte)Alzairio.common.Init.Blocks.alzadirt.blockID;
+        this.fillerBlock = (byte)Alzairio.common.Init.Blocks.alzastone.blockID;
         this.theBiomeDecorator.treesPerChunk = -999;
         this.theBiomeDecorator.deadBushPerChunk = 1;
         this.theBiomeDecorator.reedsPerChunk = 1;

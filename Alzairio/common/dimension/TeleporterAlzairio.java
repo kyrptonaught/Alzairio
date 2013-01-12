@@ -8,7 +8,6 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.world.Teleporter;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
-import Alzairio.common.Alzairio;
 
 
 
@@ -56,11 +55,11 @@ public class TeleporterAlzairio extends Teleporter {
 	                double d3 = ((double)j2 + 0.5D) - entity.posZ;
 	                for (int k2 = 128 - 1; k2 >= 0; k2--)
 	                {
-	                    if (world.getBlockId(j1, k2, j2) != Alzairio.alzairio_portal.blockID)
+	                    if (world.getBlockId(j1, k2, j2) != Alzairio.common.Init.Blocks.alzairio_portal.blockID)
 	                    {
 	                        continue;
 	                    }
-	                    for (; world.getBlockId(j1, k2 - 1, j2) == Alzairio.alzairio_portal.blockID; k2--) { }
+	                    for (; world.getBlockId(j1, k2 - 1, j2) == Alzairio.common.Init.Blocks.alzairio_portal.blockID; k2--) { }
 	                    double d5 = ((double)k2 + 0.5D) - entity.posY;
 	                    double d7 = d1 * d1 + d5 * d5 + d3 * d3;
 	                    if (d < 0.0D || d7 < d)
@@ -82,19 +81,19 @@ public class TeleporterAlzairio extends Teleporter {
 	            double d2 = (double)k1 + 0.5D;
 	            double d4 = (double)l1 + 0.5D;
 	            double d6 = (double)i2 + 0.5D;
-	            if (world.getBlockId(k1 - 1, l1, i2) == Alzairio.alzairio_portal.blockID)
+	            if (world.getBlockId(k1 - 1, l1, i2) == Alzairio.common.Init.Blocks.alzairio_portal.blockID)
 	            {
 	                d2 -= 0.5D;
 	            }
-	            if (world.getBlockId(k1 + 1, l1, i2) == Alzairio.alzairio_portal.blockID)
+	            if (world.getBlockId(k1 + 1, l1, i2) == Alzairio.common.Init.Blocks.alzairio_portal.blockID)
 	            {
 	                d2 += 0.5D;
 	            }
-	            if (world.getBlockId(k1, l1, i2 - 1) == Alzairio.alzairio_portal.blockID)
+	            if (world.getBlockId(k1, l1, i2 - 1) == Alzairio.common.Init.Blocks.alzairio_portal.blockID)
 	            {
 	                d6 -= 0.5D;
 	            }
-	            if (world.getBlockId(k1, l1, i2 + 1) == Alzairio.alzairio_portal.blockID)
+	            if (world.getBlockId(k1, l1, i2 + 1) == Alzairio.common.Init.Blocks.alzairio_portal.blockID)
 	            {
 	                d6 += 0.5D;
 	            }
@@ -273,7 +272,7 @@ public class TeleporterAlzairio extends Teleporter {
 	                    int i10 = i3 + k7;
 	                    int j11 = l3 + (j6 - 1) * j4;
 	                    boolean flag1 = j6 == 0 || j6 == 3 || k7 == -1 || k7 == 3;
-	                    world.setBlockWithNotify(l8, i10, j11, flag1 ? Block.stoneBrick.blockID : Alzairio.alzairio_portal.blockID);
+	                    world.setBlockWithNotify(l8, i10, j11, flag1 ? Block.stoneBrick.blockID : Alzairio.common.Init.Blocks.alzairio_portal.blockID);
 	                }
 	            }
 

@@ -7,8 +7,7 @@ import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import Alzairio.common.Alzairio;
-import Alzairio.common.Proxys.ClientProxyAlzairio;
+import Alzairio.common.Proxys.CommonProxyAlzairio;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -20,9 +19,13 @@ public class ItemIscaffold extends Item
 	public ItemIscaffold(int id) {
 		super(id);
 		maxStackSize = 64;
-		this.setCreativeTab(Alzairio.tabalzairio);	
+		this.setCreativeTab(Alzairio.common.Alzairio.tabalzairio2);	
 	   
 	}	
+	@Override
+	public String getTextureFile() {
+		return CommonProxyAlzairio.Items_png;
+	}
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4)
 	{
@@ -39,10 +42,9 @@ public class ItemIscaffold extends Item
 		Side side = FMLCommonHandler.instance().getEffectiveSide();
 		if (side == Side.SERVER)
 		{
-		par3World.setBlockWithNotify(par4, par5+1, par6, Alzairio.scaffold.blockID);
-	Alzairio.Crum++;
+		par3World.setBlockWithNotify(par4, par5+1, par6, Alzairio.common.Init.Blocks.scaffold.blockID);
+	Alzairio.common.Alzairio.Crum++;
 		}
-	ClientProxyAlzairio.SaveCrumValue();
 		// ClientProxyAlzairio.printMessageToPlayer("Crum = " + Alzairio.Taint);
 		
 	    

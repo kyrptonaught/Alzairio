@@ -7,7 +7,6 @@ import net.minecraft.block.BlockPortal;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.world.World;
-import Alzairio.common.Alzairio;
 import Alzairio.common.Proxys.CommonProxyAlzairio;
 
 public class Blockalzairio_portal  extends BlockPortal
@@ -15,7 +14,7 @@ public class Blockalzairio_portal  extends BlockPortal
 	 public Blockalzairio_portal(int id, int texture)
 	 {
 	  super(id, texture);
-	  this.setCreativeTab(Alzairio.tabalzairio);
+	  this.setCreativeTab(Alzairio.common.Alzairio.tabalzairio);
 	 }
 @Override
 public String getTextureFile(){
@@ -44,9 +43,9 @@ public void onEntityCollidedWithBlock(World par1World, int par2, int par3, int p
   if (par5Entity instanceof EntityPlayerMP)
   {
    EntityPlayerMP thePlayer = (EntityPlayerMP) par5Entity;
-   if (par5Entity.dimension != Alzairio.dimension)
+   if (par5Entity.dimension != Alzairio.common.Alzairio.dimension)
    {
-    thePlayer.mcServer.getConfigurationManager().transferPlayerToDimension(thePlayer, Alzairio.dimension, new TeleporterAlzairio(thePlayer.mcServer.worldServerForDimension(Alzairio.dimension)));
+    thePlayer.mcServer.getConfigurationManager().transferPlayerToDimension(thePlayer, Alzairio.common.Alzairio.dimension, new TeleporterAlzairio(thePlayer.mcServer.worldServerForDimension(Alzairio.common.Alzairio.dimension)));
    }
    else
    {
@@ -62,12 +61,12 @@ public boolean tryToCreatePortal(World par1World, int par2, int par3, int par4)
     byte var5 = 0;
     byte var6 = 0;
 
-    if (par1World.getBlockId(par2 - 1, par3, par4) == Alzairio.alzairian.blockID || par1World.getBlockId(par2 + 1, par3, par4) == Alzairio.alzairian.blockID)
+    if (par1World.getBlockId(par2 - 1, par3, par4) == Alzairio.common.Init.Blocks.alzairian.blockID || par1World.getBlockId(par2 + 1, par3, par4) == Alzairio.common.Init.Blocks.alzairian.blockID)
     {
         var5 = 1;
     }
 
-    if (par1World.getBlockId(par2, par3, par4 - 1) == Alzairio.alzairian.blockID || par1World.getBlockId(par2, par3, par4 + 1) == Alzairio.alzairian.blockID)
+    if (par1World.getBlockId(par2, par3, par4 - 1) == Alzairio.common.Init.Blocks.alzairian.blockID || par1World.getBlockId(par2, par3, par4 + 1) == Alzairio.common.Init.Blocks.alzairian.blockID)
     {
         var6 = 1;
     }
@@ -99,7 +98,7 @@ public boolean tryToCreatePortal(World par1World, int par2, int par3, int par4)
 
                     if (var9)
                     {
-                        if (var10 != Alzairio.alzairian.blockID)
+                        if (var10 != Alzairio.common.Init.Blocks.alzairian.blockID)
                         {
                             return false;
                         }
@@ -145,7 +144,7 @@ public void onNeighborBlockChange(World par1World, int par2, int par3, int par4,
   ;
  }
 
-  if (par1World.getBlockId(par2, var8 - 1, par4) != Alzairio.alzairian.blockID)
+  if (par1World.getBlockId(par2, var8 - 1, par4) != Alzairio.common.Init.Blocks.alzairian.blockID)
  {
   par1World.setBlockWithNotify(par2, par3, par4, 0);
  }
@@ -158,7 +157,7 @@ public void onNeighborBlockChange(World par1World, int par2, int par3, int par4,
    ;
   }
 
-   if (var9 == 3 && par1World.getBlockId(par2, var8 + var9, par4) == Alzairio.alzairian.blockID)
+   if (var9 == 3 && par1World.getBlockId(par2, var8 + var9, par4) == Alzairio.common.Init.Blocks.alzairian.blockID)
   {
    boolean var10 = par1World.getBlockId(par2 - 1, par3, par4) == this.blockID || par1World.getBlockId(par2 + 1, par3, par4) == this.blockID;
    boolean var11 = par1World.getBlockId(par2, par3, par4 - 1) == this.blockID || par1World.getBlockId(par2, par3, par4 + 1) == this.blockID;
@@ -169,7 +168,7 @@ public void onNeighborBlockChange(World par1World, int par2, int par3, int par4,
    }
    else
    {
-    if ((par1World.getBlockId(par2 + var6, par3, par4 + var7) != Alzairio.alzairian.blockID || par1World.getBlockId(par2 - var6, par3, par4 - var7) != this.blockID) && (par1World.getBlockId(par2 - var6, par3, par4 - var7) != Alzairio.alzairian.blockID || par1World.getBlockId(par2 + var6, par3, par4 + var7) != this.blockID))
+    if ((par1World.getBlockId(par2 + var6, par3, par4 + var7) != Alzairio.common.Init.Blocks.alzairian.blockID || par1World.getBlockId(par2 - var6, par3, par4 - var7) != this.blockID) && (par1World.getBlockId(par2 - var6, par3, par4 - var7) != Alzairio.common.Init.Blocks.alzairian.blockID || par1World.getBlockId(par2 + var6, par3, par4 + var7) != this.blockID))
     {
      par1World.setBlockWithNotify(par2, par3, par4, 0);
     }

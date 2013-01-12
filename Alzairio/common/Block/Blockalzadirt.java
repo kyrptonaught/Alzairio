@@ -3,19 +3,24 @@ package Alzairio.common.Block;
 import java.util.Random;
 
 import net.minecraft.block.BlockGrass;
-import Alzairio.common.Alzairio;
+import Alzairio.common.Proxys.CommonProxyAlzairio;
+
 
 public class Blockalzadirt extends BlockGrass{
 
-	public Blockalzadirt(int id, int texture) {
+	public Blockalzadirt(int id) {
 		super(id);
-		this.setCreativeTab(Alzairio.tabalzairio);	
+		this.setCreativeTab(Alzairio.common.Alzairio.tabalzairio);	
 		}
 	
+	@Override
+	public String getTextureFile() {
+		return CommonProxyAlzairio.Grass_png;
+	}
 	 
 	 public int idDropped(int par1, Random par2Random, int par3)
 	    {
-	        return Alzairio.alzadirt.idDropped(0, par2Random, par3);
+	        return Alzairio.common.Init.Blocks.alzadirt.idDropped(0, par2Random, par3);
 	    }
 	 /*	@Override
 	public void randomDisplayTick(World par1World, int par2, int par3, int par4, Random par5Random)

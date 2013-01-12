@@ -1,5 +1,16 @@
 package Alzairio.common.dimension;
 
+import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.CAVE;
+import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.MINESHAFT;
+import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.RAVINE;
+import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.SCATTERED_FEATURE;
+import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.STRONGHOLD;
+import static net.minecraftforge.event.terraingen.InitMapGenEvent.EventType.VILLAGE;
+import static net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.EventType.DUNGEON;
+import static net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.EventType.ICE;
+import static net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.EventType.LAKE;
+import static net.minecraftforge.event.terraingen.PopulateChunkEvent.Populate.EventType.LAVA;
+
 import java.util.List;
 import java.util.Random;
 
@@ -24,10 +35,15 @@ import net.minecraft.world.gen.feature.WorldGenLakes;
 import net.minecraft.world.gen.structure.MapGenMineshaft;
 import net.minecraft.world.gen.structure.MapGenStronghold;
 import net.minecraft.world.gen.structure.MapGenVillage;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.Event.Result;
+import net.minecraftforge.event.terraingen.ChunkProviderEvent;
+import net.minecraftforge.event.terraingen.PopulateChunkEvent;
+import net.minecraftforge.event.terraingen.TerrainGen;
 
 public class ChunkProviderAlzairio implements IChunkProvider
 {
-    /** RNG. */
+	 /** RNG. */
     private Random rand;
 
     /** A NoiseGeneratorOctaves used in generating terrain */
@@ -97,6 +113,15 @@ public class ChunkProviderAlzairio implements IChunkProvider
     float[] parabolicField;
     int[][] field_73219_j = new int[32][32];
 
+    {
+        caveGenerator = TerrainGen.getModdedMapGen(caveGenerator, CAVE);
+        strongholdGenerator = (MapGenStronghold) TerrainGen.getModdedMapGen(strongholdGenerator, STRONGHOLD);
+        villageGenerator = (MapGenVillage) TerrainGen.getModdedMapGen(villageGenerator, VILLAGE);
+        mineshaftGenerator = (MapGenMineshaft) TerrainGen.getModdedMapGen(mineshaftGenerator, MINESHAFT);
+        scatteredFeatureGenerator = (MapGenScatteredFeature) TerrainGen.getModdedMapGen(scatteredFeatureGenerator, SCATTERED_FEATURE);
+        ravineGenerator = TerrainGen.getModdedMapGen(ravineGenerator, RAVINE);
+    }
+
     public ChunkProviderAlzairio(World par1World, long par2, boolean par4)
     {
         this.worldObj = par1World;
@@ -109,6 +134,16 @@ public class ChunkProviderAlzairio implements IChunkProvider
         this.noiseGen5 = new NoiseGeneratorOctaves(this.rand, 10);
         this.noiseGen6 = new NoiseGeneratorOctaves(this.rand, 16);
         this.mobSpawnerNoise = new NoiseGeneratorOctaves(this.rand, 8);
+
+        NoiseGeneratorOctaves[] noiseGens = {noiseGen1, noiseGen2, noiseGen3, noiseGen4, noiseGen5, noiseGen6, mobSpawnerNoise};
+        noiseGens = TerrainGen.getModdedNoiseGenerators(par1World, this.rand, noiseGens);
+        this.noiseGen1 = noiseGens[0];
+        this.noiseGen2 = noiseGens[1];
+        this.noiseGen3 = noiseGens[2];
+        this.noiseGen4 = noiseGens[3];
+        this.noiseGen5 = noiseGens[4];
+        this.noiseGen6 = noiseGens[5];
+        this.mobSpawnerNoise = noiseGens[6];
     }
 
     /**
@@ -194,6 +229,10 @@ public class ChunkProviderAlzairio implements IChunkProvider
      */
     public void replaceBlocksForBiome(int par1, int par2, byte[] par3ArrayOfByte, BiomeGenBase[] par4ArrayOfBiomeGenBase)
     {
+        ChunkProviderEvent.ReplaceBiomeBlocks event = new ChunkProviderEvent.ReplaceBiomeBlocks(this, par1, par2, par3ArrayOfByte, par4ArrayOfBiomeGenBase);
+        MinecraftForge.EVENT_BUS.post(event);
+        if (event.getResult() == Result.DENY) return;
+
         byte var5 = 63;
         double var6 = 0.03125D;
         this.stoneNoise = this.noiseGen4.generateNoiseOctaves(this.stoneNoise, par1 * 16, par2 * 16, 0, 16, 16, 1, var6 * 2.0D, var6 * 2.0D, var6 * 2.0D);
@@ -329,6 +368,10 @@ public class ChunkProviderAlzairio implements IChunkProvider
      */
     private double[] initializeNoiseField(double[] par1ArrayOfDouble, int par2, int par3, int par4, int par5, int par6, int par7)
     {
+        ChunkProviderEvent.InitNoiseField event = new ChunkProviderEvent.InitNoiseField(this, par1ArrayOfDouble, par2, par3, par4, par5, par6, par7);
+        MinecraftForge.EVENT_BUS.post(event);
+        if (event.getResult() == Result.DENY) return event.noisefield;
+
         if (par1ArrayOfDouble == null)
         {
             par1ArrayOfDouble = new double[par5 * par6 * par7];
@@ -497,6 +540,8 @@ public class ChunkProviderAlzairio implements IChunkProvider
         this.rand.setSeed((long)par2 * var7 + (long)par3 * var9 ^ this.worldObj.getSeed());
         boolean var11 = false;
 
+        MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Pre(par1IChunkProvider, worldObj, rand, par2, par3, var11));
+
         if (this.mapFeaturesEnabled)
         {
             this.mineshaftGenerator.generateStructuresInChunk(this.worldObj, this.rand, par2, par3);
@@ -509,7 +554,8 @@ public class ChunkProviderAlzairio implements IChunkProvider
         int var13;
         int var14;
 
-        if (!var11 && this.rand.nextInt(4) == 0)
+        if (TerrainGen.populate(par1IChunkProvider, worldObj, rand, par2, par3, var11, LAKE) && 
+                !var11 && this.rand.nextInt(4) == 0)
         {
             var12 = var4 + this.rand.nextInt(16) + 8;
             var13 = this.rand.nextInt(128);
@@ -517,7 +563,8 @@ public class ChunkProviderAlzairio implements IChunkProvider
             (new WorldGenLakes(Block.waterStill.blockID)).generate(this.worldObj, this.rand, var12, var13, var14);
         }
 
-        if (!var11 && this.rand.nextInt(8) == 0)
+        if (TerrainGen.populate(par1IChunkProvider, worldObj, rand, par2, par3, var11, LAVA) &&
+                !var11 && this.rand.nextInt(8) == 0)
         {
             var12 = var4 + this.rand.nextInt(16) + 8;
             var13 = this.rand.nextInt(this.rand.nextInt(120) + 8);
@@ -529,7 +576,8 @@ public class ChunkProviderAlzairio implements IChunkProvider
             }
         }
 
-        for (var12 = 0; var12 < 8; ++var12)
+        boolean doGen = TerrainGen.populate(par1IChunkProvider, worldObj, rand, par2, par3, var11, DUNGEON);
+        for (var12 = 0; doGen && var12 < 8; ++var12)
         {
             var13 = var4 + this.rand.nextInt(16) + 8;
             var14 = this.rand.nextInt(128);
@@ -546,7 +594,8 @@ public class ChunkProviderAlzairio implements IChunkProvider
         var4 += 8;
         var5 += 8;
 
-        for (var12 = 0; var12 < 16; ++var12)
+        doGen = TerrainGen.populate(par1IChunkProvider, worldObj, rand, par2, par3, var11, ICE);
+        for (var12 = 0; doGen && var12 < 16; ++var12)
         {
             for (var13 = 0; var13 < 16; ++var13)
             {
@@ -563,6 +612,8 @@ public class ChunkProviderAlzairio implements IChunkProvider
                 }
             }
         }
+
+        MinecraftForge.EVENT_BUS.post(new PopulateChunkEvent.Post(par1IChunkProvider, worldObj, rand, par2, par3, var11));
 
         BlockSand.fallInstantly = false;
     }
@@ -607,7 +658,7 @@ public class ChunkProviderAlzairio implements IChunkProvider
     public List getPossibleCreatures(EnumCreatureType par1EnumCreatureType, int par2, int par3, int par4)
     {
         BiomeGenBase var5 = this.worldObj.getBiomeGenForCoords(par2, par4);
-        return var5 == null ? null : var5.getSpawnableList(par1EnumCreatureType);
+        return var5 == null ? null : (var5 == BiomeGenBase.swampland && par1EnumCreatureType == EnumCreatureType.monster && this.scatteredFeatureGenerator.hasStructureAt(par2, par3, par4) ? this.scatteredFeatureGenerator.getScatteredFeatureSpawnList() : var5.getSpawnableList(par1EnumCreatureType));
     }
 
     /**
@@ -623,9 +674,14 @@ public class ChunkProviderAlzairio implements IChunkProvider
         return 0;
     }
 
-	@Override
-	public void recreateStructures(int var1, int var2) {
-		// TODO Auto-generated method stub
-		
-	}
+    public void recreateStructures(int par1, int par2)
+    {
+        if (this.mapFeaturesEnabled)
+        {
+            this.mineshaftGenerator.generate(this, this.worldObj, par1, par2, (byte[])null);
+            this.villageGenerator.generate(this, this.worldObj, par1, par2, (byte[])null);
+            this.strongholdGenerator.generate(this, this.worldObj, par1, par2, (byte[])null);
+            this.scatteredFeatureGenerator.generate(this, this.worldObj, par1, par2, (byte[])null);
+        }
+    }
 }

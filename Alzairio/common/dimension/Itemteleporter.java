@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import Alzairio.common.Alzairio;
+import Alzairio.common.Proxys.CommonProxyAlzairio;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.relauncher.Side;
 
@@ -15,9 +16,14 @@ public class Itemteleporter extends Item {
 	public Itemteleporter(int id) {
 		super(id);
 		maxStackSize = 1;
-		this.setCreativeTab(Alzairio.tabalzairio);	
+		this.setCreativeTab(Alzairio.tabalzairio2);	
 	}	
-	 @Override
+	
+	@Override
+	public String getTextureFile() {
+		return CommonProxyAlzairio.Items_png;
+	}
+	@Override
 	 public ItemStack onItemRightClick(ItemStack var1, World var2, EntityPlayer var3)
 	    {
 		 Side side = FMLCommonHandler.instance().getEffectiveSide();
