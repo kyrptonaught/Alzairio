@@ -7,10 +7,9 @@ import net.minecraft.util.MathHelper;
 
 import org.lwjgl.opengl.GL11;
 
+import Alzairio.common.Proxys.CommonProxyAlzairio;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-
-import Alzairio.common.Proxys.CommonProxyAlzairio;
 
 public class RenderLandBoat extends Render
 {

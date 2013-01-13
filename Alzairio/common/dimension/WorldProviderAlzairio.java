@@ -20,7 +20,15 @@ public class WorldProviderAlzairio extends WorldProvider{
 	 {
 	  return true;
 	 }
-	 
+	 public String getSaveFolder()
+	    {
+	        return "Alzairio Dimension";
+	    }
+ 
+	 public double getMovementFactor()
+	    {
+	  return 2.0;
+	    } 
 	 @Override
 	 public IChunkProvider createChunkGenerator()
 	 {

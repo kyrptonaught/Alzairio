@@ -11,8 +11,7 @@ public class BlockAlzairioStill extends BlockStationary {
 	        super(id, Material.water);
 	        this.blockHardness = 100F;
 	        this.setLightOpacity(3);
-	        this.setBlockName("Alzairio water still");
-	        this.setCreativeTab(Alzairio.common.Alzairio.tabalzairio);
+	       this.setCreativeTab(Alzairio.common.Alzairio.tabalzairio);
 	        this.disableStats();
 	        this.setRequiresSelfNotify();
 	    }

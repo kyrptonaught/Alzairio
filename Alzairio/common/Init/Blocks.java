@@ -1,6 +1,9 @@
 package Alzairio.common.Init;
 
 import net.minecraft.block.Block;
+import Alzairio.common.Block.BlockInvisi;
+import Alzairio.common.Block.BlockReducer;
+import Alzairio.common.Block.BlockWall;
 import Alzairio.common.Block.Blockaconitum;
 import Alzairio.common.Block.Blockalzadirt;
 import Alzairio.common.Block.Blockalzairian;
@@ -29,7 +32,11 @@ public class Blocks {
     public static Block launcher; 
     public static Block scaffold; 
     public static Block alzairianOre; 
-
+    public static Block Water1;
+    public static Block Water2;
+    public static Block Cannon;
+    public static Block Wall;
+    public static Block Reducer;
     public static void init() {
 	
     	alzadirt = new Blockalzadirt(151).setBlockName("alzadirt");
@@ -79,5 +86,25 @@ public class Blocks {
 	scaffold = new Blockscaffold(3012,7).setBlockName("scaffold");
 	GameRegistry.registerBlock(scaffold,"scaffold");
 	LanguageRegistry.addName(scaffold,"Scaffold");
+   
+	/*Water1 = new BlockAlzairioStill(3013).setBlockName("Water1");
+	GameRegistry.registerBlock(Water1,"Water1");
+	LanguageRegistry.addName(Water1,"Test liquid");
+    
+	Water2 = new BlockAlzairioWater(3015).setBlockName("Water2");
+	GameRegistry.registerBlock(Water2,"Water2");
+	LanguageRegistry.addName(Water2,"Test liquid");
+  */  
+	Cannon = new BlockInvisi(3016,8).setBlockName("Cannon");
+	GameRegistry.registerBlock(Cannon,"Cannon");
+	LanguageRegistry.addName(Cannon,"Invisible Block");
+    
+    Wall = new BlockWall(3017,9).setBlockName("Wall");
+    GameRegistry.registerBlock(Wall,"Wall");
+    LanguageRegistry.addName(Wall,"Fake Wall");
+    
+    Reducer = new BlockReducer(3018,10).setBlockName("Reducer");
+    GameRegistry.registerBlock(Reducer,"Reducer");
+    LanguageRegistry.addName(Reducer, "Crum Reducer");
     }
 }

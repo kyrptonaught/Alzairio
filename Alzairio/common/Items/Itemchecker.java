@@ -37,11 +37,11 @@ public class Itemchecker extends Item {
 		 ClientProxyAlzairio.SaveCrumValue();
 	ClientProxyAlzairio.printMessageToPlayer("Scanning area for Crum");
 	 ClientProxyAlzairio.printMessageToPlayer("...");
-		if (Alzairio.Crum > 100) {
-		 ClientProxyAlzairio.printMessageToPlayer("Oh no the Amount of polution is to high");		
+		if (Alzairio.Crum > 50) {
+		 ClientProxyAlzairio.printMessageToPlayer("Oh no the Amount of polution is getting high");		
 	 }
 		 ClientProxyAlzairio.printMessageToPlayer("Crum = " + Alzairio.Crum);
-	     ClientProxyAlzairio.ReadCrumValue();
+	    // ClientProxyAlzairio.ReadCrumValue();
 	return true;
 	   
 	    }

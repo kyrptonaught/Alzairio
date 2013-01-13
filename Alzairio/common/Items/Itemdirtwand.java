@@ -31,9 +31,9 @@ public class Itemdirtwand extends Item{
 	 {	
 	 par3World.setBlockWithNotify(par4, par5+1, par6, Alzairio.common.Init.Blocks.alzadirt.blockID);
 	 Alzairio.common.Alzairio.Crum++;
-		 //ClientProxyAlzairio.printMessageToPlayer("Crum = " + Alzairio.Taint);
-		//ClientProxyAlzairio.RenderPic("Yolo") ;
-	 ClientProxyAlzairio.printMessageToPlayer("Username: " + par2EntityPlayer.username);
+	ClientProxyAlzairio.printMessageToPlayer(getTextureFile());
+	 //ClientProxyAlzairio.printMessageToPlayer("Crum = " + Alzairio.Taint);
+		 ClientProxyAlzairio.printMessageToPlayer("Username: " + par2EntityPlayer.username);
 	if (par2EntityPlayer.username == "kyrptonaught") {
 		ClientProxyAlzairio.printMessageToPlayer("Welcome Master "+ par2EntityPlayer.username +". How may I assist you today");
 	}

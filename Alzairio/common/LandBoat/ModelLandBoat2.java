@@ -88,7 +88,7 @@ public class ModelLandBoat2 extends ModelBase
 	  public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
 	  {
 	    super.render(entity, f, f1, f2, f3, f4, f5);
-	    setRotationAngles(f, f1, f2, f3, f4, f5);
+	    setRotationAngles(f, f1, f2, f3, f4, f5, entity);
 	    front.render(f5);
 	    back.render(f5);
 	    side1.render(f5);
@@ -108,9 +108,10 @@ public class ModelLandBoat2 extends ModelBase
 	    model.rotateAngleZ = z;
 	  }
 	  
-	  public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5)
+	  public void setRotationAngles(float par1, float par2, float par3, float par4, float par5, float par6, Entity par7Entity)
 	  {
-	  //  super.setRotationAngles(f, f1, f2, f3, f4, f5, null);
+	    super.setRotationAngles(par1, par2, par3, par4, par5, par6, par7Entity);
 	  }
+
 
 	}

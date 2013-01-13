@@ -12,8 +12,7 @@ public class BlockAlzairioWater extends BlockFlowing{
         this.blockHardness = 100F;
         this.setLightOpacity(3);
         this.setCreativeTab(Alzairio.common.Alzairio.tabalzairio);
-        this.setBlockName("Alzairio water");
-    }
+        }
 
     @Override
     public String getTextureFile() {

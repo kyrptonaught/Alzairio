@@ -18,7 +18,6 @@ import Alzairio.common.LandBoat.RenderLandBoat;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -52,6 +51,7 @@ public static void printMessageToPlayer(String msg) {
 	 FMLClientHandler.instance().getClient().ingameGUI.getChatGUI().printChatMessage((msg));
     }	
   }
+
 
 public static void ReadCrumValue(){
 	  try {

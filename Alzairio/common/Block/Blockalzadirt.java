@@ -18,10 +18,7 @@ public class Blockalzadirt extends BlockGrass{
 		return CommonProxyAlzairio.Grass_png;
 	}
 	 
-	 public int idDropped(int par1, Random par2Random, int par3)
-	    {
-	        return Alzairio.common.Init.Blocks.alzadirt.idDropped(0, par2Random, par3);
-	    }
+	 
 	 /*	@Override
 	public void randomDisplayTick(World par1World, int par2, int par3, int par4, Random par5Random)
 	{
