@@ -3,12 +3,15 @@ package Alzairio.common;
 import java.io.File;
 
 import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.src.ModLoader;
 import net.minecraft.world.WorldType;
 import net.minecraft.world.biome.BiomeGenBase;
 import net.minecraftforge.common.Configuration;
 import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.common.Property;
 import net.minecraftforge.event.ForgeSubscribe;
+import Alzairio.common.Handlers.FakeWallKeyHandler;
+import Alzairio.common.Handlers.JetPackKeyHandler;
 import Alzairio.common.Handlers.PacketHandler;
 import Alzairio.common.Handlers.TickHandler;
 import Alzairio.common.Init.Blocks;
@@ -23,6 +26,7 @@ import Alzairio.common.Tabs.Tabalzairio2;
 import Alzairio.common.dimension.WorldProviderAlzairio;
 import Alzairio.common.world.BiomeGenAlzairio;
 import Alzairio.common.world.WorldTypeAlzairio;
+import cpw.mods.fml.client.registry.KeyBindingRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.ITickHandler;
@@ -38,7 +42,7 @@ import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.TickRegistry;
 import cpw.mods.fml.relauncher.Side;
-@Mod(modid = "Alzairio", name = "Alzairio", version =  "Beta 1.4"  )
+@Mod(modid = "Alzairio", name = "Alzairio", version =  "Beta 1.5"  )
 @NetworkMod(clientSideRequired = true, serverSideRequired = true, 
 channels={"Alzairio"}, packetHandler = PacketHandler.class)
 public class Alzairio {
@@ -46,7 +50,7 @@ public class Alzairio {
 	@SidedProxy(clientSide = "Alzairio.common.Proxys.ClientProxyAlzairio", serverSide = "Alzairio.common.Proxys.CommonProxyAlzairio") public static CommonProxyAlzairio proxy;
 	public static CreativeTabs tabalzairio = new Tabalzairio(CreativeTabs.getNextID(), "alzairio");
 	public static CreativeTabs tabalzairio2 = new Tabalzairio2(CreativeTabs.getNextID(), "alzairio2"); 
-	public String MVersion = "Beta 1.4";
+	public String MVersion = "Beta 1.5";
      public static BiomeGenBase AlzairioBiome;
      public static final WorldType AlzairioWorld = new WorldTypeAlzairio(3, "Alzairio");
      public static int Crum;
@@ -61,7 +65,7 @@ public class Alzairio {
 				event.getSuggestedConfigurationFile());
 		config.load();
 		Property Version = config.get(Configuration.CATEGORY_GENERAL, "version", MVersion );
-		String CrumLevel = Integer.toString(Crum);
+		
 		//Property Crum = config.get(Configuration.CATEGORY_GENERAL, "Crum level", CrumLevel );
 		Version.comment = "This is the config file for the Alzairio Dimmension mod for minecarft";
 		config.save();
@@ -71,20 +75,19 @@ public class Alzairio {
 	public void load(FMLInitializationEvent event) {
 		proxy.registerRenderThings();
 		
-		//registerTickHandler(TickHandler.class, Side.CLIENT);
-		TickRegistry.registerTickHandler(new TickHandler(), Side.CLIENT);
-		Blocks.init();
+		//TickRegistry.registerTickHandler(new TickHandler(), Side.CLIENT);
+		 Side side = FMLCommonHandler.instance().getEffectiveSide();
+			if (side == Side.CLIENT)
+			{
+		KeyBindingRegistry.registerKeyBinding(new FakeWallKeyHandler());
+	    KeyBindingRegistry.registerKeyBinding(new JetPackKeyHandler());
+			}
+	    Blocks.init();
 		 Items.init();
 	
-		 Side side = FMLCommonHandler.instance().getEffectiveSide();
-			if (side == Side.CLIENT){
-			RenderingRegistry.registerEntityRenderingHandler(EntityLandBoat.class, new RenderLandBoat());
-			EntityRegistry.registerModEntity(EntityLandBoat.class, "Land Boat", 180, this, 40, 1, true);
-	
-			}  
 			
 			
-	 CrumReducer = new  ModelCrumReducer();
+	  CrumReducer = new  ModelCrumReducer();
 	  DimensionManager.registerProviderType(dimension, WorldProviderAlzairio.class, false); 
 	  DimensionManager.registerDimension(dimension, dimension); 
 	 

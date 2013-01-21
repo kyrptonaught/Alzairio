@@ -2,6 +2,8 @@ package Alzairio.common.dimension;
 
 import java.util.Random;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPortal;
 import net.minecraft.entity.Entity;
@@ -36,6 +38,7 @@ public void randomDisplayTick(World par1World, int par2, int par3, int par4, Ran
     double var16 = 0.0D;
 	par1World.spawnParticle("magicCrit", var6, var8, var10, var12, var14, var16);
 }
+//@SideOnly(Side.CLIENT)
 public void onEntityCollidedWithBlock(World par1World, int par2, int par3, int par4, Entity par5Entity)
 {
  if (par5Entity.ridingEntity == null && par5Entity.riddenByEntity == null)

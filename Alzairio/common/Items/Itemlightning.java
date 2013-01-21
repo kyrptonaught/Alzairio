@@ -6,6 +6,7 @@ import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import Alzairio.common.Alzairio;
@@ -31,10 +32,17 @@ public class Itemlightning extends Item {
 		return CommonProxyAlzairio.Items_png;
 	}
 	
+	
 	@Override
 	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10)
 	 {	
-	 Alzairio.Crum++;
+	 MovingObjectPosition block = this.getMovingObjectPositionFromPlayer(par3World, par2EntityPlayer,  true);
+	  if (block != null)
+	  {
+     int BlockGet = par3World.getBlockId(block.blockX,block.blockY ,block.blockZ );
+	  // ClientProxyAlzairio.printMessageToPlayer("Block ID : " + BlockGet);
+	  }
+	Alzairio.Crum++;
 	ClientProxyAlzairio.SaveCrumValue();
 	  Vec3 look = par2EntityPlayer.getLookVec();
       EntityLightningBolt fireball2 = new EntityLightningBolt(par3World, 1, 1, 1);

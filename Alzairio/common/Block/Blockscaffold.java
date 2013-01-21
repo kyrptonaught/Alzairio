@@ -51,7 +51,7 @@ public class Blockscaffold extends BlockLadder{
 
 	        if (!var7)
 	        {
-	            this.dropBlockAsItem(par1World, par2, par3, par4, var6, 0);
+	           // this.dropBlockAsItem(par1World, par2, par3, par4, var6, 0);
 	            par1World.setBlockWithNotify(par2, par3, par4, 0);
 	        }
 

@@ -1,7 +1,9 @@
 package Alzairio.common.Init;
 
-import net.minecraft.item.Item;
+import net.minecraft.item.*;
+import net.minecraftforge.*;
 import Alzairio.common.Items.ItemIscaffold;
+import Alzairio.common.Items.ItemJetPack;
 import Alzairio.common.Items.Itemchecker;
 import Alzairio.common.Items.Itemdirtwand;
 import Alzairio.common.Items.Itemlightning;
@@ -19,9 +21,12 @@ public class Items {
     public static int dimension = 20;
     public static Item teleporter;
     public static Item LandBoat;
-public static void init(){
+    public static Item JetPack;
+   
+    public static void init(){
 	
-	Iscaffold = new ItemIscaffold(3013).setItemName("Iscaffold").setIconIndex(1);
+    	
+    	Iscaffold = new ItemIscaffold(3013).setItemName("Iscaffold").setIconIndex(1);
 	GameRegistry.registerItem(Iscaffold,"Iscaffold");
 	LanguageRegistry.addName(Iscaffold, "Scaffold");
 	
@@ -44,7 +49,12 @@ public static void init(){
 	LandBoat = new ItemLandBoat(3018).setItemName("LandBoat").setIconIndex(6);
 	GameRegistry.registerItem(LandBoat,"LandBoat");
 	LanguageRegistry.addName(LandBoat, "LandBoat");
-}
+   
+	JetPack = new ItemJetPack(3019,EnumArmorMaterial.DIAMOND, 4, 1).setItemName("JetPack");
+	GameRegistry.registerItem(JetPack,"JetPack");
+	LanguageRegistry.addName(JetPack,"JetPack");
+	
+    }
 
 
 }

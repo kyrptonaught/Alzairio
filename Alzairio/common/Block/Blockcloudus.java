@@ -1,5 +1,7 @@
 package Alzairio.common.Block;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
@@ -25,7 +27,8 @@ public class Blockcloudus extends Block{
 	        return null;
 	    }
 	
-	public void onEntityCollidedWithBlock(World par1World, int par2, int par3, int par4, EntityPlayer entityplayer, Entity par5Entity)
+	@SideOnly(Side.CLIENT)
+	 public void onEntityCollidedWithBlock(World par1World, int par2, int par3, int par4, EntityPlayer entityplayer, Entity par5Entity)
 	{
 		//entityplayer.addStat(Alzairio.cloudusAchieve, 1);
 		par5Entity.fallDistance = 0;

@@ -13,11 +13,16 @@ import net.minecraftforge.client.MinecraftForgeClient;
 import org.lwjgl.opengl.GL11;
 
 import Alzairio.common.Alzairio;
+import Alzairio.common.Handlers.FakeWallKeyHandler;
+import Alzairio.common.Handlers.JetPackKeyHandler;
 import Alzairio.common.LandBoat.EntityLandBoat;
 import Alzairio.common.LandBoat.RenderLandBoat;
+import Alzairio.common.Models.CrumReducerRender;
 import cpw.mods.fml.client.FMLClientHandler;
+import cpw.mods.fml.client.registry.KeyBindingRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
@@ -31,13 +36,21 @@ MinecraftForgeClient.preloadTexture(alzairio_png);
 MinecraftForgeClient.preloadTexture(LandBoat_png);
 MinecraftForgeClient.preloadTexture(Items_png);
 MinecraftForgeClient.preloadTexture(Grass_png);
-
+MinecraftForgeClient.preloadTexture(AlzaWool);
+MinecraftForgeClient.preloadTexture(JetPack_png);
 }
 @SideOnly(Side.CLIENT)
+
 public static void registerRenderEntitys(){
 	Side side = FMLCommonHandler.instance().getEffectiveSide();
 	if (side == Side.CLIENT){
 	RenderingRegistry.registerEntityRenderingHandler(EntityLandBoat.class, new RenderLandBoat());
+	 RenderingRegistry.registerBlockHandler(new CrumReducerRender()); // Or 'this' if your proxy happens to be the one that implements the block render interface.
+    CrumReducerRender.renderID = RenderingRegistry.getNextAvailableRenderId();
+    
+    RenderingRegistry.registerEntityRenderingHandler(EntityLandBoat.class, new RenderLandBoat());
+	EntityRegistry.registerModEntity(EntityLandBoat.class, "Land Boat", 180, Alzairio.class, 40, 1, true);
+   
 	}
 }
 public static void printMessageToPlayer(String msg) {

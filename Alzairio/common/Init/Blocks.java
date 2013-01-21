@@ -1,7 +1,11 @@
 package Alzairio.common.Init;
 
+import java.security.SecureRandom;
+
 import net.minecraft.block.Block;
+import Alzairio.common.Block.BlockAlzawool;
 import Alzairio.common.Block.BlockInvisi;
+import Alzairio.common.Block.BlockPlanter;
 import Alzairio.common.Block.BlockReducer;
 import Alzairio.common.Block.BlockWall;
 import Alzairio.common.Block.Blockaconitum;
@@ -20,6 +24,7 @@ import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
 public class Blocks {
+
 	public static Block alzairio_portal;
 	public static Block alzadirt;
 	public static Block alzairian;
@@ -37,9 +42,11 @@ public class Blocks {
     public static Block Cannon;
     public static Block Wall;
     public static Block Reducer;
+    public static Block Planter;
+    public static Block Alzawool;  
     public static void init() {
-	
-    	alzadirt = new Blockalzadirt(151).setBlockName("alzadirt");
+    	
+    	alzadirt = new Blockalzadirt(151,0).setBlockName("alzadirt");
 		GameRegistry.registerBlock(alzadirt, "alzadirt");
 		LanguageRegistry.addName(alzadirt, "Alzairio Dirt");
 
@@ -64,8 +71,8 @@ public class Blocks {
 	LanguageRegistry.addName(aconitum, "Aconitum");
 	
 	alzairian = new Blockalzairian(3007, 6).setBlockName("alzairian");
-		GameRegistry.registerBlock(alzairian, "alzairian");
-		LanguageRegistry.addName(alzairian, "Alzairian");
+    GameRegistry.registerBlock(alzairian, "alzairian");
+	LanguageRegistry.addName(alzairian, "Alzairian");
 		
 	speedy = new Blockspeedy(3008,5).setBlockName("speedy");
 	GameRegistry.registerBlock(speedy, "speedy");
@@ -99,12 +106,28 @@ public class Blocks {
 	GameRegistry.registerBlock(Cannon,"Cannon");
 	LanguageRegistry.addName(Cannon,"Invisible Block");
     
-    Wall = new BlockWall(3017,9).setBlockName("Wall");
+    Wall = new BlockWall(3017).setBlockName("Wall");
     GameRegistry.registerBlock(Wall,"Wall");
     LanguageRegistry.addName(Wall,"Fake Wall");
     
     Reducer = new BlockReducer(3018,10).setBlockName("Reducer");
     GameRegistry.registerBlock(Reducer,"Reducer");
     LanguageRegistry.addName(Reducer, "Crum Reducer");
+   
+    Planter = new BlockPlanter(3019,11).setBlockName("Planter");
+    GameRegistry.registerBlock(Planter,"Planter");
+    LanguageRegistry.addName(Planter,"Name Pending #3");
+     
+    Alzawool = new BlockAlzawool(3020).setBlockName("Alzawool");
+    GameRegistry.registerBlock(Alzawool,"Alzawool");
+    LanguageRegistry.addName(Alzawool,"Alzawool");
+   
     }
+    
+/*public static void Block(Block block, int id, int slot, String BlockName, Class Blockblock(id, slot)){
+	block = new Blockblock(id,slot).setBlockName(block);
+	GameRegistry.registerBlock(block, BlockName);
+	LanguageRegistry.addName(block,BlockName);
+}*/
+	
 }

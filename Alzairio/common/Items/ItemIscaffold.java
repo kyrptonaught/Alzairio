@@ -29,22 +29,18 @@ public class ItemIscaffold extends Item
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, List par3List, boolean par4)
 	{
-	par3List.add("Spawn a scaffold. Increases Crum by 1");
+	par3List.add("Spawn a scaffold block. Increases Crum by 1");
 	}
-	@Override
-	public EnumAction getItemUseAction(ItemStack par1ItemStack)
-	    {
-	        return EnumAction.block;
-	    }
+	
 	@Override
 	public boolean onItemUse(ItemStack par1ItemStack, EntityPlayer par2EntityPlayer, World par3World, int par4, int par5, int par6, int par7, float par8, float par9, float par10)
 	 {	
 		Side side = FMLCommonHandler.instance().getEffectiveSide();
-		if (side == Side.SERVER)
-		{
+	//	if (side == Side.CLIENT)
+		//{
 		par3World.setBlockWithNotify(par4, par5+1, par6, Alzairio.common.Init.Blocks.scaffold.blockID);
 	Alzairio.common.Alzairio.Crum++;
-		}
+	//	}
 		// ClientProxyAlzairio.printMessageToPlayer("Crum = " + Alzairio.Taint);
 		
 	    

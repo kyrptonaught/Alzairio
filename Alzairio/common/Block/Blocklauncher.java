@@ -1,5 +1,7 @@
 package Alzairio.common.Block;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockStairs;
 import net.minecraft.entity.Entity;
@@ -47,7 +49,8 @@ public class Blocklauncher extends BlockStairs{
 	        return false;
 	    }
 	   @Override
-	public void onEntityWalking(World par1World, int par2, int par3, int par4, Entity par5Entity) {
+	@SideOnly(Side.CLIENT)
+	   public void onEntityWalking(World par1World, int par2, int par3, int par4, Entity par5Entity) {
 			if (par5Entity instanceof EntityLiving) {
 				((EntityLiving) par5Entity).addPotionEffect(new PotionEffect(Potion.moveSpeed.getId(), 20, 5));
 				par5Entity.motionY += 2.0;

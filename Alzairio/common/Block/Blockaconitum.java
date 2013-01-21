@@ -1,5 +1,7 @@
 package Alzairio.common.Block;
 
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
@@ -22,6 +24,7 @@ public class Blockaconitum extends Block{
 
 
 	@Override
+	@SideOnly(Side.CLIENT)
 	public void onEntityWalking(World par1World, int par2, int par3, int par4, Entity par5Entity) {
 		if (par5Entity instanceof EntityLiving) {
 		par5Entity.attackEntityFrom(DamageSource.generic, 4);
