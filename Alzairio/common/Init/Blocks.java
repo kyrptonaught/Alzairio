@@ -1,8 +1,7 @@
 package Alzairio.common.Init;
 
-import java.security.SecureRandom;
-
 import net.minecraft.block.Block;
+import Alzairio.common.Block.BlockAlzTorch;
 import Alzairio.common.Block.BlockAlzawool;
 import Alzairio.common.Block.BlockInvisi;
 import Alzairio.common.Block.BlockPlanter;
@@ -19,7 +18,10 @@ import Alzairio.common.Block.Blockscaffold;
 import Alzairio.common.Block.Blockspeedy;
 import Alzairio.common.Block.BlockspeedyS;
 import Alzairio.common.Block.Blocktrampoline;
+import Alzairio.common.Models.TileEntityReducer;
 import Alzairio.common.dimension.Blockalzairio_portal;
+import Alzairio.common.liquids.BlockAlzairioStill;
+import Alzairio.common.liquids.BlockAlzairioWater;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.common.registry.LanguageRegistry;
 
@@ -44,11 +46,12 @@ public class Blocks {
     public static Block Reducer;
     public static Block Planter;
     public static Block Alzawool;  
+    public static Block AlzTorch;
     public static void init() {
     	
     	alzadirt = new Blockalzadirt(151,0).setBlockName("alzadirt");
 		GameRegistry.registerBlock(alzadirt, "alzadirt");
-		LanguageRegistry.addName(alzadirt, "Alzairio Dirt");
+		LanguageRegistry.addName(alzadirt, "Alzairio Grass");
 
 		alzairio_portal = new Blockalzairio_portal(3001, 0).setBlockName("alzairio_portal");
 		GameRegistry.registerBlock(alzairio_portal, "alzairio_portal");
@@ -76,13 +79,13 @@ public class Blocks {
 		
 	speedy = new Blockspeedy(3008,5).setBlockName("speedy");
 	GameRegistry.registerBlock(speedy, "speedy");
-	LanguageRegistry.addName(speedy,"Name Pending...");
+	LanguageRegistry.addName(speedy,"Speedy Block");
 	
 	speedyS = (new BlockspeedyS(3009, speedy, 5)).setBlockName("speedyS").setRequiresSelfNotify();	
 	GameRegistry.registerBlock(speedyS, "speedyS");
-	LanguageRegistry.addName(speedyS,"Name Also Pending...");
+	LanguageRegistry.addName(speedyS,"Speedy Stairs");
 	
-	launcher = (new Blocklauncher(3014, speedy, 5)).setBlockName("launcher").setRequiresSelfNotify();
+	launcher = (new Blocklauncher(3014, speedy, 7)).setBlockName("launcher").setRequiresSelfNotify();
 	GameRegistry.registerBlock(launcher,"launcher");
 	LanguageRegistry.addName(launcher, "Launcher");
 	
@@ -94,34 +97,37 @@ public class Blocks {
 	GameRegistry.registerBlock(scaffold,"scaffold");
 	LanguageRegistry.addName(scaffold,"Scaffold");
    
-	/*Water1 = new BlockAlzairioStill(3013).setBlockName("Water1");
+	Water1 = new BlockAlzairioStill(3000).setBlockName("Water1");
 	GameRegistry.registerBlock(Water1,"Water1");
-	LanguageRegistry.addName(Water1,"Test liquid");
+	LanguageRegistry.addName(Water1,"Stil Alzairian water");
     
-	Water2 = new BlockAlzairioWater(3015).setBlockName("Water2");
+	Water2 = new BlockAlzairioWater(2999).setBlockName("Water2");
 	GameRegistry.registerBlock(Water2,"Water2");
-	LanguageRegistry.addName(Water2,"Test liquid");
-  */  
-	Cannon = new BlockInvisi(3016,8).setBlockName("Cannon");
+	LanguageRegistry.addName(Water2,"Flowing Alzairian Water");
+    
+	Cannon = new BlockInvisi(155,8).setBlockName("Cannon");
 	GameRegistry.registerBlock(Cannon,"Cannon");
 	LanguageRegistry.addName(Cannon,"Invisible Block");
     
-    Wall = new BlockWall(3017).setBlockName("Wall");
+    Wall = new BlockWall(154).setBlockName("Wall");
     GameRegistry.registerBlock(Wall,"Wall");
-    LanguageRegistry.addName(Wall,"Fake Wall");
+    LanguageRegistry.addName(Wall,"Fake Wall/Mimic WIP");
     
-    Reducer = new BlockReducer(3018,10).setBlockName("Reducer");
+    Reducer = new BlockReducer(3018,10, TileEntityReducer.class).setBlockName("Reducer");
     GameRegistry.registerBlock(Reducer,"Reducer");
-    LanguageRegistry.addName(Reducer, "Crum Reducer");
+    LanguageRegistry.addName(Reducer, "WIP Crafting Table");
    
     Planter = new BlockPlanter(3019,11).setBlockName("Planter");
     GameRegistry.registerBlock(Planter,"Planter");
-    LanguageRegistry.addName(Planter,"Name Pending #3");
+    LanguageRegistry.addName(Planter,"Planter WIP");
      
     Alzawool = new BlockAlzawool(3020).setBlockName("Alzawool");
     GameRegistry.registerBlock(Alzawool,"Alzawool");
     LanguageRegistry.addName(Alzawool,"Alzawool");
    
+    AlzTorch = new BlockAlzTorch(153,12).setBlockName("AlzTorch");
+    GameRegistry.registerBlock(AlzTorch,"AlzTorch");
+    LanguageRegistry.addName(AlzTorch, "AlzTorch");
     }
     
 /*public static void Block(Block block, int id, int slot, String BlockName, Class Blockblock(id, slot)){

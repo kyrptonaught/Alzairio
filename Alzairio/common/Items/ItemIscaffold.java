@@ -3,7 +3,6 @@ package Alzairio.common.Items;
 import java.util.List;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
@@ -19,7 +18,7 @@ public class ItemIscaffold extends Item
 	public ItemIscaffold(int id) {
 		super(id);
 		maxStackSize = 64;
-		this.setCreativeTab(Alzairio.common.Alzairio.tabalzairio2);	
+		//this.setCreativeTab(Alzairio.common.Alzairio.tabalzairio2);	
 	   
 	}	
 	@Override

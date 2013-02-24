@@ -21,9 +21,6 @@ public class TeleporterAlzairio extends Teleporter {
 	}
 
 	
-
-	    
-
 	    public void placeInPortal(World world, Entity entity)
 	    {
 	        if (placeInExistingPortal(world, entity))
@@ -37,7 +34,7 @@ public class TeleporterAlzairio extends Teleporter {
 	            return;
 	        }
 	    }
-
+        
 	    public boolean placeInExistingPortal(World world, Entity entity)
 	    {
 	        char c = '\200';

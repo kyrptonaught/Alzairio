@@ -33,7 +33,7 @@ public String texture;
 @SideOnly(Side.CLIENT)
 private double velocityX;
 @SideOnly(Side.CLIENT)
-private double velocityY;
+public static double velocityY;
 @SideOnly(Side.CLIENT)
 private double velocityZ;
 public EntityLandBoat(World par1World)
@@ -131,7 +131,7 @@ public boolean attackEntityFrom(DamageSource par1DamageSource, int par2)
                          {
                                  this.riddenByEntity.mountEntity(this);
                          }
-                         this.dropItemWithOffset(Item.boat.itemID, 1, 0.0F);
+                         this.dropItemWithOffset(Alzairio.common.Init.Items.LandBoat.itemID, 1, 0.0F);
                          this.setDead();
                  }
                  return true;
@@ -207,15 +207,8 @@ public void onUpdate()
 {
          super.onUpdate();
        
-         
-         if(Keyboard.isKeyDown(Keyboard.KEY_SPACE)) {
-         //ClientProxyAlzairio.printMessageToPlayer("Key pressed!");
-        this.motionY= .5F;
-         }  
-         
-         else if(Keyboard.isKeyDown(Keyboard.KEY_LSHIFT)) {
-        	//ClientProxyAlzairio.printMessageToPlayer("Other key thingy pressed"); 
-         this.motionY = -.9F;
+         if(this.isCollided){
+        	 this.motionY = 1;
          }
          
          if (this.getTimeSinceHit() > 0)
@@ -428,19 +421,13 @@ protected void readEntityFromNBT(NBTTagCompound par1NBTTagCompound) {}
          * Called when a player interacts with a mob. e.g. gets milk from a cow, gets into the saddle on a pig.
          */
 public boolean interact(EntityPlayer par1EntityPlayer)
+{ 
+	if (!this.worldObj.isRemote)
 {
-         if (this.riddenByEntity != null && this.riddenByEntity instanceof EntityPlayer && this.riddenByEntity != par1EntityPlayer)
-         {
-                 return true;
-         }
-         else
-         {
-                 if (!this.worldObj.isRemote)
-                 {
-                         par1EntityPlayer.mountEntity(this);
-                 }
-                 return true;
-         }
+              par1EntityPlayer.mountEntity(this);
+}
+              return true;
+       
 }
 /**
          * Sets the damage taken from the last hit.

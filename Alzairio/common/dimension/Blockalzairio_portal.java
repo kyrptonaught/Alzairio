@@ -2,12 +2,9 @@ package Alzairio.common.dimension;
 
 import java.util.Random;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPortal;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.world.World;
 import Alzairio.common.Proxys.CommonProxyAlzairio;
 
@@ -41,22 +38,21 @@ public void randomDisplayTick(World par1World, int par2, int par3, int par4, Ran
 //@SideOnly(Side.CLIENT)
 public void onEntityCollidedWithBlock(World par1World, int par2, int par3, int par4, Entity par5Entity)
 {
- if (par5Entity.ridingEntity == null && par5Entity.riddenByEntity == null)
- {
-  if (par5Entity instanceof EntityPlayerMP)
-  {
-   EntityPlayerMP thePlayer = (EntityPlayerMP) par5Entity;
+ 
+   Entity thePlayer = (Entity) par5Entity;
+   
    if (par5Entity.dimension != Alzairio.common.Alzairio.dimension)
    {
-    thePlayer.mcServer.getConfigurationManager().transferPlayerToDimension(thePlayer, Alzairio.common.Alzairio.dimension, new TeleporterAlzairio(thePlayer.mcServer.worldServerForDimension(Alzairio.common.Alzairio.dimension)));
+   // thePlayer.mcServer.getConfigurationManager().transferPlayerToDimension(thePlayer, Alzairio.common.Alzairio.dimension, new TeleporterAlzairio(thePlayer.mcServer.worldServerForDimension(Alzairio.common.Alzairio.dimension)));
+    thePlayer.travelToDimension(20);
    }
    else
    {
-    thePlayer.mcServer.getConfigurationManager().transferPlayerToDimension(thePlayer, 0, new TeleporterAlzairio(thePlayer.mcServer.worldServerForDimension(0)));
+   // thePlayer.mcServer.getConfigurationManager().transferPlayerToDimension(thePlayer, 0, new TeleporterAlzairio(thePlayer.mcServer.worldServerForDimension(0)));
+   thePlayer.travelToDimension(0);
    }
   }
- }
-}
+
 
 @Override
 public boolean tryToCreatePortal(World par1World, int par2, int par3, int par4)

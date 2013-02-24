@@ -1,15 +1,11 @@
 package Alzairio.common.dimension;
 
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-import net.minecraft.world.WorldServer;
 import Alzairio.common.Alzairio;
 import Alzairio.common.Proxys.CommonProxyAlzairio;
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.relauncher.Side;
 
 public class Itemteleporter extends Item {
 
@@ -23,7 +19,19 @@ public class Itemteleporter extends Item {
 	public String getTextureFile() {
 		return CommonProxyAlzairio.Items_png;
 	}
+	
 	@Override
+	public ItemStack onItemRightClick(ItemStack itemStack, World world, EntityPlayer player)
+	{
+	if(player.dimension != 20  ){
+		player.timeUntilPortal = 10;
+	player.travelToDimension(Alzairio.dimension);
+	}
+	else player.travelToDimension(0);
+	return itemStack;
+	}
+	
+	/*@Override
 	 public ItemStack onItemRightClick(ItemStack var1, World var2, EntityPlayer var3)
 	    {
 		 Side side = FMLCommonHandler.instance().getEffectiveSide();
@@ -45,5 +53,5 @@ public class Itemteleporter extends Item {
 			}	
 		 return var1;
 	 
-	    }    
+	    }  */  
 }

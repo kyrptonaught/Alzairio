@@ -1,14 +1,11 @@
 package Alzairio.common.Block;
 
 
-import java.awt.Graphics;
-
-import Alzairio.common.Init.Blocks;
-import Alzairio.common.Proxys.CommonProxyAlzairio;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.world.World;
+import Alzairio.common.Proxys.CommonProxyAlzairio;
 
 public class BlockPlanter extends Block{
 	public BlockPlanter(int id, int texture) {

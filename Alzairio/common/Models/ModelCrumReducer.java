@@ -76,7 +76,7 @@ public class ModelCrumReducer extends ModelBase{
       Shape9.mirror = true;
       setRotation(Shape9, 0F, 0F, 0F);
   }
-  
+ @Override 
   public void render(Entity entity, float f, float f1, float f2, float f3, float f4, float f5)
   {
     super.render(entity, f, f1, f2, f3, f4, f5);
@@ -98,7 +98,39 @@ public class ModelCrumReducer extends ModelBase{
     model.rotateAngleY = y;
     model.rotateAngleZ = z;
   }
-  
+  public void renderModel(float f1)
+  {
+  Shape1.render(f1);
+  Shape2.render(f1);
+  Shape3.render(f1);
+  Shape4.render(f1);
+  Shape5.render(f1);
+  Shape6.render(f1);
+  Shape7.render(f1);
+  Shape8.render(f1);
+  Shape9.render(f1);
+ 
+  }
+  public void rotateY(float f1, float f2){
+	 Shape1.renderWithRotation(f1);
+     Shape1.rotateAngleX= f2;
+     Shape2.render(f1);
+     Shape2.rotateAngleX= f2;
+     Shape3.render(f1);
+     Shape3.rotateAngleX= f2;
+     Shape4.render(f1);
+     Shape4.rotateAngleX= f2;
+     Shape5.render(f1);
+     Shape5.rotateAngleX= f2;
+     Shape6.render(f1);
+     Shape6.rotateAngleX= f2;
+     Shape7.render(f1);
+     Shape7.rotateAngleX= f2;
+     Shape8.render(f1);
+     Shape8.rotateAngleX= f2;
+     Shape9.render(f1);
+     Shape9.rotateAngleX= f2;
+  }
   public void setRotationAngles(float f, float f1, float f2, float f3, float f4, float f5)
   {
     super.setRotationAngles(f, f1, f2, f3, f4, f5, null);

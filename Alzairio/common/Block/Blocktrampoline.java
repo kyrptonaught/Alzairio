@@ -2,7 +2,6 @@ package Alzairio.common.Block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.potion.Potion;
@@ -22,27 +21,25 @@ public class Blocktrampoline extends Block{
 	public String getTextureFile() {
 		return CommonProxyAlzairio.alzairio_png;
 	}
-	 @Override
-	public AxisAlignedBB getCollisionBoundingBoxFromPool(World par1World, int par2, int par3, int par4)
-	    {
-	        float var5 = 0.125F;
-	        return AxisAlignedBB.getAABBPool().addOrModifyAABBInPool(par2, par3, par4, par2 + 1, par3 + 1 - var5, par4 + 1);
-	    }
-	 public void onEntityCollidedWithBlock(World par1World, int par2, int par3, int par4, Entity entity, Minecraft minecraft)
+   @Override
+	public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int i, int j, int k)
+    {
+            float f = 0.0625F;
+            return AxisAlignedBB.getBoundingBox((float)i + f, j, (float)k + f, (float)(i + 1) - f, (float)(j + 1) - f, (float)(k + 1) - f);
+    }
+  @Override
+    public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int i, int j, int k)
+    {
+            float f = 0.0625F;
+            return AxisAlignedBB.getBoundingBox((float)i + f, j, (float)k + f, (float)(i + 1) - f, j + 1, (float)(k + 1) - f);
+    }
+	@Override
+	 public void onEntityCollidedWithBlock(World par1World, int par2, int par3, int par4, Entity entity)
 	    {
 		 entity.fallDistance = 0;
  
 		 entity.motionY += 2.0;
 	    }
 	
-	@Override
-	public void onEntityWalking(World world, int x, int y, int z, Entity entity)
-    {
-		entity.fallDistance = 0;
-            
-		entity.motionY += 2.0;
-                   
-   ((EntityLiving) entity).addPotionEffect(new PotionEffect(Potion.jump.getId(), 60, 5));
-     
-   }
+	
 }

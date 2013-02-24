@@ -5,6 +5,11 @@ import static net.minecraftforge.common.ForgeDirection.NORTH;
 import static net.minecraftforge.common.ForgeDirection.SOUTH;
 import static net.minecraftforge.common.ForgeDirection.WEST;
 import net.minecraft.block.BlockLadder;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 import Alzairio.common.Proxys.CommonProxyAlzairio;
 
@@ -18,6 +23,20 @@ public class Blockscaffold extends BlockLadder{
 	public String getTextureFile() {
 		return CommonProxyAlzairio.alzairio_png;
 	}
+	 @Override
+		public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int i, int j, int k)
+	    {
+	            float f = 0.0625F;
+	            return AxisAlignedBB.getBoundingBox((float)i + f, j, (float)k + f, (float)(i + 1) - f, (float)(j + 1) - f, (float)(k + 1) - f);
+	    }
+	  @Override
+	    public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int i, int j, int k)
+	    {
+	            float f = 0.0625F;
+	            return AxisAlignedBB.getBoundingBox((float)i + f, j, (float)k + f, (float)(i + 1) - f, j + 1, (float)(k + 1) - f);
+	    }
+	
+	 
 	@Override
 	public int getRenderType()
     {

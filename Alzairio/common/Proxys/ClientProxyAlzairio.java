@@ -5,30 +5,48 @@ import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.util.logging.Level;
 
 import net.minecraft.client.gui.FontRenderer;
+import net.minecraft.client.model.ModelBiped;
 import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
+import net.minecraft.entity.effect.EntityLightningBolt;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.world.World;
+import net.minecraftforge.client.IItemRenderer;
 import net.minecraftforge.client.MinecraftForgeClient;
 
 import org.lwjgl.opengl.GL11;
 
+import Alzairio.common.Init.Items;
+import Alzairio.common.Init.Items.*;
 import Alzairio.common.Alzairio;
-import Alzairio.common.Handlers.FakeWallKeyHandler;
-import Alzairio.common.Handlers.JetPackKeyHandler;
 import Alzairio.common.LandBoat.EntityLandBoat;
 import Alzairio.common.LandBoat.RenderLandBoat;
 import Alzairio.common.Models.CrumReducerRender;
+import Alzairio.common.Models.ModelAlzaT;
+import Alzairio.common.Models.ModelLightningWand;
+import Alzairio.common.Models.RenderAlza;
+import Alzairio.common.Models.RenderLightning;
+import Alzairio.common.Models.TileEntityReducer;
+import Alzairio.common.entity.EntityAlza;
+import Alzairio.common.entity.EntityBeam;
+import Alzairio.common.entity.RenderBeam;
 import cpw.mods.fml.client.FMLClientHandler;
-import cpw.mods.fml.client.registry.KeyBindingRegistry;
+import cpw.mods.fml.client.registry.ClientRegistry;
 import cpw.mods.fml.client.registry.RenderingRegistry;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.registry.EntityRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
-
+import Alzairio.common.AlzairioLogger;
 public class ClientProxyAlzairio extends CommonProxyAlzairio {
 public static String file = "Alzairio/Crum.txt";
 public static int CrumLevel;
+public static String msg;
 @Override
 public void registerRenderThings()
 {
@@ -38,20 +56,31 @@ MinecraftForgeClient.preloadTexture(Items_png);
 MinecraftForgeClient.preloadTexture(Grass_png);
 MinecraftForgeClient.preloadTexture(AlzaWool);
 MinecraftForgeClient.preloadTexture(JetPack_png);
+MinecraftForgeClient.preloadTexture(Armour_png);
+MinecraftForgeClient.preloadTexture(Armour2_png);
+MinecraftForgeClient.preloadTexture(Logo_png);
+MinecraftForgeClient.preloadTexture(CrumMeter);
+MinecraftForgeClient.preloadTexture(Entity);
+MinecraftForgeClient.preloadTexture(container);
+MinecraftForgeClient.preloadTexture(Lightning);
+MinecraftForgeClient.preloadTexture(HD_Text);
+ClientRegistry.registerTileEntity(TileEntityReducer.class, "Reducer", new CrumReducerRender());
+
 }
 @SideOnly(Side.CLIENT)
-
-public static void registerRenderEntitys(){
-	Side side = FMLCommonHandler.instance().getEffectiveSide();
-	if (side == Side.CLIENT){
+@Override
+public void registerRenderEntitys(){
+	
 	RenderingRegistry.registerEntityRenderingHandler(EntityLandBoat.class, new RenderLandBoat());
-	 RenderingRegistry.registerBlockHandler(new CrumReducerRender()); // Or 'this' if your proxy happens to be the one that implements the block render interface.
-    CrumReducerRender.renderID = RenderingRegistry.getNextAvailableRenderId();
-    
-    RenderingRegistry.registerEntityRenderingHandler(EntityLandBoat.class, new RenderLandBoat());
-	EntityRegistry.registerModEntity(EntityLandBoat.class, "Land Boat", 180, Alzairio.class, 40, 1, true);
-   
+	RenderingRegistry.registerEntityRenderingHandler(EntityBeam.class, new RenderBeam());
+	RenderingRegistry.registerEntityRenderingHandler(EntityAlza.class, new RenderAlza(new ModelBiped(), 1.0F));
 	}
+
+public static void SpawnLightning(double PosX, double PosY, double PosZ) {
+	 World theWorld = FMLClientHandler.instance().getClient().theWorld;
+	 EntityLightningBolt Lightning = new EntityLightningBolt(theWorld, 1, 1, 1);
+     Lightning.setPosition(PosX,PosY,PosZ);
+     theWorld.spawnEntityInWorld(Lightning);
 }
 public static void printMessageToPlayer(String msg) {
 	Side side = FMLCommonHandler.instance().getEffectiveSide();
@@ -65,7 +94,7 @@ public static void printMessageToPlayer(String msg) {
     }	
   }
 
-
+@SideOnly(Side.CLIENT)
 public static void ReadCrumValue(){
 	  try {
     BufferedReader br = new BufferedReader(new FileReader(file));
@@ -81,6 +110,20 @@ public static void ReadCrumValue(){
 	  }
   
 }
+public static String ReadMessage(){
+	  try {
+		    URL url = new URL("http://mc-brikbroz.webs.com/Alzairio%20Mod/test.txt");
+		   
+		    BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()));
+		    br.read();
+		    msg =  br.readLine();
+		    AlzairioLogger.log(Level.INFO, "Message: "+ msg);
+		    }
+		    catch (IOException e) {
+				  
+			  }
+return msg;
+}
 public static void SaveCrumValue() {
 	try {
         BufferedWriter out = new BufferedWriter(new FileWriter(file));
@@ -90,31 +133,23 @@ public static void SaveCrumValue() {
     }	
 	
 }
-@SideOnly(Side.CLIENT)
-public static void RenderPic(String text){
-	RenderManager renderManager = RenderManager.instance;
-	FontRenderer fontrenderer = renderManager.getFontRenderer();
-	float f1 = 1.6F;
-	float f2 = 0.01666667F * f1;
-	        
-	GL11.glPushMatrix();
-	GL11.glDisable(GL11.GL_DEPTH_TEST);
-	GL11.glDisable(GL11.GL_NORMALIZE);
-	GL11.glEnable(GL11.GL_LIGHTING);
-	//GL11.glTranslatef((float)posX + 0.0F, (float)posY, (float)posZ);
-	//GL11.glNormal3f(-11103301230.0F, 0.0F, 0.0F);
-	GL11.glRotatef(-renderManager.playerViewY, 0.0F, 1.0F, 0.0F);
-	GL11.glRotatef(renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
-	GL11.glScalef(-f2, -f2, f2);
-	fontrenderer.drawString(text, -fontrenderer.getStringWidth(text) / 2, 0, 0xFFffffff);
-	GL11.glEnable(GL11.GL_DEPTH_TEST);
-	GL11.glEnable(GL11.GL_NORMALIZE);
-	GL11.glDisable(GL11.GL_LIGHTING);
-	GL11.glPopMatrix();
-}
 
 @Override
 public int addArmor(String armorName){
 return RenderingRegistry.addNewArmourRendererPrefix(armorName);
 }
+public static void IncreaseSpeed(float f){
+	EntityPlayer thePlayer = FMLClientHandler.instance().getClient().thePlayer;
+	thePlayer.capabilities.func_82877_b(f);
+}
+
+public static void SpawnParticle(double posx, double posy, double posz) {
+	World theWorld = FMLClientHandler.instance().getClient().theWorld;
+	theWorld.spawnParticle("largesmoke", posx, posy, posz,0,-2,0);
+     theWorld.spawnParticle("lava", posx, posy, posz,0,-2,0);
+     theWorld.spawnParticle("dripLava", posx, posy, posz,0,-2,0);
+     theWorld.spawnParticle("townaura", posx, posy, posz,0,-2,0);
+     theWorld.spawnParticle("spell", posx, posy, posz,0,-2,0);
+}
+
 }

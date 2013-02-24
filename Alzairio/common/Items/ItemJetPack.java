@@ -1,10 +1,12 @@
 package Alzairio.common.Items;
 
-import Alzairio.common.Proxys.CommonProxyAlzairio;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumArmorMaterial;
 import net.minecraft.item.ItemArmor;
 import net.minecraft.item.ItemStack;
+import net.minecraft.world.World;
 import net.minecraftforge.common.IArmorTextureProvider;
+import Alzairio.common.Proxys.CommonProxyAlzairio;
 
 public class ItemJetPack extends ItemArmor implements IArmorTextureProvider{
 
@@ -25,5 +27,9 @@ public class ItemJetPack extends ItemArmor implements IArmorTextureProvider{
 		
 		return CommonProxyAlzairio.JetPack_png;
 	}
-
+	@Override
+	public void onArmorTickUpdate(World world, EntityPlayer player, ItemStack itemStack)
+    {
+		player.fallDistance = 0.0F;
+    }
 }
