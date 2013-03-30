@@ -1,18 +1,16 @@
 package Alzairio.common.entity;
 
-import Alzairio.common.Init.Items;
-import Alzairio.common.Proxys.CommonProxyAlzairio;
-import net.minecraft.entity.EntityFlying;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.ai.EntityAISwimming;
 import net.minecraft.entity.ai.EntityAIWander;
 import net.minecraft.entity.ai.EntityAIWatchClosest;
 import net.minecraft.entity.monster.EntityMob;
-import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
+import Alzairio.common.Init.Items;
+import Alzairio.common.Proxys.CommonProxyAlzairio;
 
 public class EntityAlza extends EntityMob{
 
@@ -34,6 +32,7 @@ public class EntityAlza extends EntityMob{
 		this.setCurrentItemOrArmor(4, new ItemStack(Items.Helmet));
 	}
 
+	@Override
 	public boolean isAIEnabled()
 	{
 		return true;
@@ -43,6 +42,7 @@ public class EntityAlza extends EntityMob{
 
 		return 15;
 	}
+	@Override
 	public boolean interact(EntityPlayer par1EntityPlayer)
 	{ 
 		if (!this.worldObj.isRemote)

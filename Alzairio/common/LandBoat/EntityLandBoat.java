@@ -6,15 +6,11 @@ import net.minecraft.block.Block;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.MathHelper;
 import net.minecraft.world.World;
-
-import org.lwjgl.input.Keyboard;
-
 import Alzairio.common.Proxys.CommonProxyAlzairio;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
@@ -55,10 +51,12 @@ public ModelBase getModel()
          * returns if this entity triggers Block.onEntityWalking on the blocks they walk on. used for spiders and wolves to
          * prevent them from trampling crops
          */
+@Override
 protected boolean canTriggerWalking()
 {
          return false;
 }
+@Override
 protected void entityInit()
 {
          this.dataWatcher.addObject(17, new Integer(0));
@@ -69,6 +67,7 @@ protected void entityInit()
          * Returns a boundingBox used to collide the entity with other entities and blocks. This enables the entity to be
          * pushable on contact, like boats or minecarts.
          */
+@Override
 public AxisAlignedBB getCollisionBox(Entity par1Entity)
 {
          return par1Entity.boundingBox;
@@ -76,6 +75,7 @@ public AxisAlignedBB getCollisionBox(Entity par1Entity)
 /**
          * returns the bounding box for this entity
          */
+@Override
 public AxisAlignedBB getBoundingBox()
 {
          return this.boundingBox;
@@ -83,6 +83,7 @@ public AxisAlignedBB getBoundingBox()
 /**
          * Returns true if this entity should push and be pushed by other entities when colliding.
          */
+@Override
 public boolean canBePushed()
 {
          return true;
@@ -90,7 +91,7 @@ public boolean canBePushed()
 public EntityLandBoat(World par1World, double par2, double par4, double par6)
 {
          this(par1World);
-         this.setPosition(par2, par4 + (double)this.yOffset, par6);
+         this.setPosition(par2, par4 + this.yOffset, par6);
          this.motionX = 0.0D;
          this.motionY = 0.0D;
          this.motionZ = 0.0D;
@@ -101,13 +102,15 @@ public EntityLandBoat(World par1World, double par2, double par4, double par6)
 /**
          * Returns the Y offset from the entity's position for any entity riding this one.
          */
+@Override
 public double getMountedYOffset()
 {
-         return (double)this.height * 0.0D - 0.30000001192092896D;
+         return this.height * 0.0D - 0.30000001192092896D;
 }
 /**
          * Called when the entity is attacked.
          */
+@Override
 public boolean attackEntityFrom(DamageSource par1DamageSource, int par2)
 {
        //  if (this.func_85032_ar())
@@ -141,6 +144,7 @@ public boolean attackEntityFrom(DamageSource par1DamageSource, int par2)
                  return true;
          }
 }
+@Override
 @SideOnly(Side.CLIENT)
 /**
          * Setups the entity to do the hurt animation. Only used by packets in multiplayer.
@@ -154,10 +158,12 @@ public void performHurtAnimation()
 /**
          * Returns true if other Entities should be prevented from moving through this Entity.
          */
+@Override
 public boolean canBeCollidedWith()
 {
          return !this.isDead;
 }
+@Override
 @SideOnly(Side.CLIENT)
 /**
          * Sets the position and rotation. Only difference from the other one is no bounding on the rotation. Args: posX,
@@ -184,12 +190,13 @@ public void setPositionAndRotation2(double par1, double par3, double par5, float
          this.boatX = par1;
          this.boatY = par3;
          this.boatZ = par5;
-         this.boatYaw = (double)par7;
-         this.boatPitch = (double)par8;
+         this.boatYaw = par7;
+         this.boatPitch = par8;
          this.motionX = this.velocityX;
-         this.motionY = this.velocityY;
+         this.motionY = EntityLandBoat.velocityY;
          this.motionZ = this.velocityZ;
 }
+@Override
 @SideOnly(Side.CLIENT)
 /**
          * Sets the velocity to the args. Args: x, y, z
@@ -197,12 +204,13 @@ public void setPositionAndRotation2(double par1, double par3, double par5, float
 public void setVelocity(double par1, double par3, double par5)
 {
          this.velocityX = this.motionX = par1;
-         this.velocityY = this.motionY = par3;
+         EntityLandBoat.velocityY = this.motionY = par3;
          this.velocityZ = this.motionZ = par5;
 }
 /**
          * Called to update the entity's position/logic.
          */
+@Override
 public void onUpdate()
 {
          super.onUpdate();
@@ -226,21 +234,21 @@ public void onUpdate()
          double var2 = 0.0D;
          for (int var4 = 0; var4 < var1; ++var4)
          {
-                 double var5 = this.boundingBox.minY + (this.boundingBox.maxY - this.boundingBox.minY) * (double)(var4 + 0) / (double)var1 - 0.125D;
-                 double var7 = this.boundingBox.minY + (this.boundingBox.maxY - this.boundingBox.minY) * (double)(var4 + 1) / (double)var1 - 0.125D;
-                 AxisAlignedBB var9 = AxisAlignedBB.getAABBPool().addOrModifyAABBInPool(this.boundingBox.minX, var5, this.boundingBox.minZ, this.boundingBox.maxX, var7, this.boundingBox.maxZ);
+                 double var5 = this.boundingBox.minY + (this.boundingBox.maxY - this.boundingBox.minY) * (var4 + 0) / var1 - 0.125D;
+                 double var7 = this.boundingBox.minY + (this.boundingBox.maxY - this.boundingBox.minY) * (var4 + 1) / var1 - 0.125D;
+                 AxisAlignedBB var9 = AxisAlignedBB.getAABBPool().getAABB(this.boundingBox.minX, var5, this.boundingBox.minZ, this.boundingBox.maxX, var7, this.boundingBox.maxZ);
          }
          double var24 = Math.sqrt(this.motionX * this.motionX + this.motionZ * this.motionZ);
          double var6;
          double var8;
          if (var24 > 0.26249999999999996D)
          {
-                 var6 = Math.cos((double)this.rotationYaw * Math.PI / 180.0D);
-                 var8 = Math.sin((double)this.rotationYaw * Math.PI / 180.0D);
-                 for (int var10 = 0; (double)var10 < 1.0D + var24 * 60.0D; ++var10)
+                 var6 = Math.cos(this.rotationYaw * Math.PI / 180.0D);
+                 var8 = Math.sin(this.rotationYaw * Math.PI / 180.0D);
+                 for (int var10 = 0; var10 < 1.0D + var24 * 60.0D; ++var10)
                  {
-                         double var11 = (double)(this.rand.nextFloat() * 2.0F - 1.0F);
-                         double var13 = (double)(this.rand.nextInt(2) * 2 - 1) * 0.7D;
+                         double var11 = this.rand.nextFloat() * 2.0F - 1.0F;
+                         double var13 = (this.rand.nextInt(2) * 2 - 1) * 0.7D;
                          double var15;
                          double var17;
                  }
@@ -251,12 +259,12 @@ public void onUpdate()
          {
                  if (this.boatPosRotationIncrements > 0)
                  {
-                         var6 = this.posX + (this.boatX - this.posX) / (double)this.boatPosRotationIncrements;
-                         var8 = this.posY + (this.boatY - this.posY) / (double)this.boatPosRotationIncrements;
-                         var26 = this.posZ + (this.boatZ - this.posZ) / (double)this.boatPosRotationIncrements;
-                         var12 = MathHelper.wrapAngleTo180_double(this.boatYaw - (double)this.rotationYaw);
-                         this.rotationYaw = (float)((double)this.rotationYaw + var12 / (double)this.boatPosRotationIncrements);
-                         this.rotationPitch = (float)((double)this.rotationPitch + (this.boatPitch - (double)this.rotationPitch) / (double)this.boatPosRotationIncrements);
+                         var6 = this.posX + (this.boatX - this.posX) / this.boatPosRotationIncrements;
+                         var8 = this.posY + (this.boatY - this.posY) / this.boatPosRotationIncrements;
+                         var26 = this.posZ + (this.boatZ - this.posZ) / this.boatPosRotationIncrements;
+                         var12 = MathHelper.wrapAngleTo180_double(this.boatYaw - this.rotationYaw);
+                         this.rotationYaw = (float)(this.rotationYaw + var12 / this.boatPosRotationIncrements);
+                         this.rotationPitch = (float)(this.rotationPitch + (this.boatPitch - this.rotationPitch) / this.boatPosRotationIncrements);
                          --this.boatPosRotationIncrements;
                          this.setPosition(var6, var8, var26);
                          this.setRotation(this.rotationYaw, this.rotationPitch);
@@ -340,14 +348,14 @@ public void onUpdate()
                          this.motionZ *= 0.9900000095367432D;
                  }
                  this.rotationPitch = 0.0F;
-                 var8 = (double)this.rotationYaw;
+                 var8 = this.rotationYaw;
                  var26 = this.prevPosX - this.posX;
                  var12 = this.prevPosZ - this.posZ;
                  if (var26 * var26 + var12 * var12 > 0.001D)
                  {
-                         var8 = (double)((float)(Math.atan2(var12, var26) * 180.0D / Math.PI));
+                         var8 = ((float)(Math.atan2(var12, var26) * 180.0D / Math.PI));
                  }
-                 double var14 = MathHelper.wrapAngleTo180_double(var8 - (double)this.rotationYaw);
+                 double var14 = MathHelper.wrapAngleTo180_double(var8 - this.rotationYaw);
                  if (var14 > 20.0D)
                  {
                          var14 = 20.0D;
@@ -356,7 +364,7 @@ public void onUpdate()
                  {
                          var14 = -20.0D;
                  }
-                 this.rotationYaw = (float)((double)this.rotationYaw + var14);
+                 this.rotationYaw = (float)(this.rotationYaw + var14);
                  this.setRotation(this.rotationYaw, this.rotationPitch);
                  if (!this.worldObj.isRemote)
                  {
@@ -375,8 +383,8 @@ public void onUpdate()
                          }
                          for (var27 = 0; var27 < 4; ++var27)
                          {
-                                 int var28 = MathHelper.floor_double(this.posX + ((double)(var27 % 2) - 0.5D) * 0.8D);
-                                 int var19 = MathHelper.floor_double(this.posZ + ((double)(var27 / 2) - 0.5D) * 0.8D);
+                                 int var28 = MathHelper.floor_double(this.posX + (var27 % 2 - 0.5D) * 0.8D);
+                                 int var19 = MathHelper.floor_double(this.posZ + (var27 / 2 - 0.5D) * 0.8D);
                                  for (int var20 = 0; var20 < 2; ++var20)
                                  {
                                          int var21 = MathHelper.floor_double(this.posY) + var20;
@@ -384,12 +392,12 @@ public void onUpdate()
                                          int var23 = this.worldObj.getBlockMetadata(var28, var21, var19);
                                          if (var22 == Block.snow.blockID)
                                          {
-                                                 this.worldObj.setBlockWithNotify(var28, var21, var19, 0);
+                                                 this.worldObj.setBlock(var28, var21, var19, 0);
                                          }
                                          else if (var22 == Block.waterlily.blockID)
                                          {
                                                  Block.waterlily.dropBlockAsItemWithChance(this.worldObj, var28, var21, var19, var23, 0.3F, 0);
-                                                 this.worldObj.setBlockWithNotify(var28, var21, var19, 0);
+                                                 this.worldObj.setBlock(var28, var21, var19, 0);
                                          }
                                  }
                          }
@@ -400,26 +408,30 @@ public void onUpdate()
                  }
          }
 }
+@Override
 public void updateRiderPosition()
 {
          if (this.riddenByEntity != null)
          {
-                 double var1 = Math.cos((double)this.rotationYaw * Math.PI / 180.0D) * 0.4D;
-                 double var3 = Math.sin((double)this.rotationYaw * Math.PI / 180.0D) * 0.4D;
+                 double var1 = Math.cos(this.rotationYaw * Math.PI / 180.0D) * 0.4D;
+                 double var3 = Math.sin(this.rotationYaw * Math.PI / 180.0D) * 0.4D;
                  this.riddenByEntity.setPosition(this.posX + var1, this.posY + this.getMountedYOffset() + this.riddenByEntity.getYOffset(), this.posZ + var3);
          }
 }
 /**
          * (abstract) Protected helper method to write subclass entity data to NBT.
          */
+@Override
 protected void writeEntityToNBT(NBTTagCompound par1NBTTagCompound) {}
 /**
          * (abstract) Protected helper method to read subclass entity data from NBT.
          */
+@Override
 protected void readEntityFromNBT(NBTTagCompound par1NBTTagCompound) {}
 /**
          * Called when a player interacts with a mob. e.g. gets milk from a cow, gets into the saddle on a pig.
          */
+@Override
 public boolean interact(EntityPlayer par1EntityPlayer)
 { 
 	if (!this.worldObj.isRemote)
@@ -436,6 +448,7 @@ public void setDamageTaken(int par1)
 {
          this.dataWatcher.updateObject(19, Integer.valueOf(par1));
 }
+@Override
 @SideOnly(Side.CLIENT)
 public float getShadowSize()
 {

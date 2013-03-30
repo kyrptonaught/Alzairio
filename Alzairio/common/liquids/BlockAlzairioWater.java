@@ -2,7 +2,6 @@ package Alzairio.common.liquids;
 
 import net.minecraft.block.BlockFlowing;
 import net.minecraft.block.material.Material;
-import Alzairio.common.Proxys.CommonProxyAlzairio;
 
 public class BlockAlzairioWater extends BlockFlowing{
 	
@@ -14,11 +13,7 @@ public class BlockAlzairioWater extends BlockFlowing{
         this.setCreativeTab(Alzairio.common.Alzairio.tabalzairio);
         }
 
-    @Override
-    public String getTextureFile() {
-
-        return CommonProxyAlzairio.alzairio_png;
-    }
+   
 
 }
 

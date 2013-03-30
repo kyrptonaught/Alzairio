@@ -16,7 +16,7 @@ public class Tabalzairio2 extends CreativeTabs {
 	@SideOnly(Side.CLIENT)
     public int getTabIconItemIndex()
     {
-            return Alzairio.common.Init.Items.checker.itemID;
+            return Alzairio.common.Init.Items.AlzairianIngot.itemID;
                    }
 
    

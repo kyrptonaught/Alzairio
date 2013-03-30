@@ -5,35 +5,33 @@ import static net.minecraftforge.common.ForgeDirection.NORTH;
 import static net.minecraftforge.common.ForgeDirection.SOUTH;
 import static net.minecraftforge.common.ForgeDirection.WEST;
 import net.minecraft.block.BlockLadder;
-import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
+import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
-import Alzairio.common.Proxys.CommonProxyAlzairio;
+import Alzairio.common.Alzairio;
 
 public class Blockscaffold extends BlockLadder{
-	public Blockscaffold(int id, int texture) 
+	public Blockscaffold(int id) 
 	{
-		super(id, texture);
+		super(id);
 		//this.setCreativeTab(Alzairio.tabalzairio);	
 		}
-	@Override
-	public String getTextureFile() {
-		return CommonProxyAlzairio.alzairio_png;
-	}
+	@Override 
+	public void registerIcons(IconRegister par1IconRegister)
+	    {
+	        this.blockIcon = par1IconRegister.registerIcon(Alzairio.modid + ":" + this.getUnlocalizedName2());
+	    }
 	 @Override
 		public AxisAlignedBB getCollisionBoundingBoxFromPool(World world, int i, int j, int k)
 	    {
 	            float f = 0.0625F;
-	            return AxisAlignedBB.getBoundingBox((float)i + f, j, (float)k + f, (float)(i + 1) - f, (float)(j + 1) - f, (float)(k + 1) - f);
+	            return AxisAlignedBB.getBoundingBox(i + f, j, k + f, i + 1 - f, j + 1 - f, k + 1 - f);
 	    }
 	  @Override
 	    public AxisAlignedBB getSelectedBoundingBoxFromPool(World world, int i, int j, int k)
 	    {
 	            float f = 0.0625F;
-	            return AxisAlignedBB.getBoundingBox((float)i + f, j, (float)k + f, (float)(i + 1) - f, j + 1, (float)(k + 1) - f);
+	            return AxisAlignedBB.getBoundingBox(i + f, j, k + f, i + 1 - f, j + 1, k + 1 - f);
 	    }
 	
 	 
@@ -71,7 +69,7 @@ public class Blockscaffold extends BlockLadder{
 	        if (!var7)
 	        {
 	           // this.dropBlockAsItem(par1World, par2, par3, par4, var6, 0);
-	            par1World.setBlockWithNotify(par2, par3, par4, 0);
+	            par1World.setBlock(par2, par3, par4, 0);
 	        }
 
 	        super.onNeighborBlockChange(par1World, par2, par3, par4, par5);

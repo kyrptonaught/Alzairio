@@ -2,25 +2,23 @@ package Alzairio.common.Block;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.potion.Potion;
-import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.AxisAlignedBB;
 import net.minecraft.world.World;
 import Alzairio.common.Alzairio;
-import Alzairio.common.Proxys.CommonProxyAlzairio;
 
 public class Blockcloudus extends Block{
 
-	public Blockcloudus(int id, int texture) {
-		super(id, texture, Material.cloth);
+	public Blockcloudus(int id) {
+		super(id, Material.cloth);
 		this.setCreativeTab(Alzairio.tabalzairio);	
 		}
-	@Override
-	public String getTextureFile() {
-		return CommonProxyAlzairio.alzairio_png;
-	}
+	@Override 
+	public void registerIcons(IconRegister par1IconRegister)
+	    {
+	        this.blockIcon = par1IconRegister.registerIcon(Alzairio.modid + ":" + this.getUnlocalizedName2());
+	    }
 	 @Override
 	public AxisAlignedBB getCollisionBoundingBoxFromPool(World par1World, int par2, int par3, int par4)
 	    {

@@ -1,43 +1,13 @@
 package Alzairio.common.Handlers;
 
-import java.awt.Dimension;
-import java.awt.Toolkit;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.lang.reflect.Method;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.EnumSet;
-import java.util.List;
-import java.util.logging.Level;
 
-import javax.swing.FocusManager;
-
-import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.FontRenderer;
-import net.minecraft.client.gui.GuiIngame;
 import net.minecraft.client.gui.GuiScreen;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
-
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.opengl.GL11;
-
-import Alzairio.common.AlzairioLogger;
-import Alzairio.common.Block.BlockReducer;
-import Alzairio.common.LandBoat.EntityLandBoat;
-import Alzairio.common.Models.ConatainerReducer;
-import Alzairio.common.Models.TileEntityReducer;
-import Alzairio.common.Proxys.ClientProxyAlzairio;
-import Alzairio.common.Proxys.CommonProxyAlzairio;
 import cpw.mods.fml.client.FMLClientHandler;
-import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.ITickHandler;
 import cpw.mods.fml.common.TickType;
 
@@ -86,7 +56,8 @@ public class TickHandler implements ITickHandler{
 
 	public void onRenderTick()
 	{
-		Minecraft par1Minecraft = FMLClientHandler.instance().getClient().getMinecraft(); 
+		/*FMLClientHandler.instance().getClient();
+		Minecraft par1Minecraft = Minecraft.getMinecraft(); 
 
 		GuiIngame gig = new GuiIngame(par1Minecraft);
 		GL11.glBindTexture(GL11.GL_TEXTURE_2D, par1Minecraft.renderEngine.getTexture(CommonProxyAlzairio.CrumMeter));
@@ -103,6 +74,7 @@ public class TickHandler implements ITickHandler{
 			gig.drawTexturedModalRect(5, 200, 0, 0, 47, 47); // Smaller Screen
 			//fr.drawString("C: "+Alzairio.common.Alzairio.Crum, 15, 200,2);
 			gig.drawString(fr,"C: "+Alzairio.common.Alzairio.Crum , 27, 220, 3);
+		
 		}
 		//AlzairioLogger.log(Level.INFO, "Size :"+ par1Minecraft.displayHeight);
 		/* FontRenderer var1 = this.mc.fontRenderer;
@@ -151,7 +123,7 @@ public class TickHandler implements ITickHandler{
 		ItemStack itemstack4 = thePlayer.inventory.armorItemInSlot(3);//Helm
 		if(itemstack2 != null && itemstack2.itemID == Alzairio.common.Init.Items.Boots.itemID){
 		}else 
-			thePlayer.capabilities.func_82877_b(0.1F);
+			thePlayer.capabilities.setPlayerWalkSpeed(0.1F);
 	}
 
 	public void onWorldTick()  {

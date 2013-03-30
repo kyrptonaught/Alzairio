@@ -9,19 +9,14 @@ import java.net.URL;
 import java.util.List;
 import java.util.logging.Level;
 
-import cpw.mods.fml.common.FMLCommonHandler;
-import cpw.mods.fml.common.network.PacketDispatcher;
-import cpw.mods.fml.relauncher.Side;
-
-import net.minecraft.client.entity.EntityClientPlayerMP;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommand;
 import net.minecraft.command.ICommandSender;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.network.packet.Packet250CustomPayload;
 import net.minecraft.server.MinecraftServer;
-import Alzairio.common.Proxys.ClientProxyAlzairio;
+import cpw.mods.fml.common.FMLCommonHandler;
+import cpw.mods.fml.common.network.PacketDispatcher;
+import cpw.mods.fml.relauncher.Side;
 public class AlzairioCMD extends CommandBase implements ICommand {
 public static String msg;
 	@Override
@@ -30,6 +25,7 @@ public static String msg;
 		return 0;
 	}
 
+	@Override
 	public int getRequiredPermissionLevel()
 	{
 		return 0;
@@ -54,14 +50,17 @@ public static String msg;
 
 	@Override
 	public void processCommand(ICommandSender var1, String[] var2) {
-
+		if(var2[0].equals("")){
+			var1.sendChatToPlayer("Proper usage is version,message");
+		}
+		
 		if(var2[0].equals("version")){
 			var1.sendChatToPlayer("The current Version is: "+Alzairio.MVersion);
 		}
 		else if (var2[0].equals("message")) {
 			Side side = FMLCommonHandler.instance().getSide();
 			
-			this.PacketSend(side, var1);
+			AlzairioCMD.PacketSend(side, var1);
 			
 		}
 	
@@ -121,7 +120,6 @@ public static String msg;
 		return null;
 	}
 
-	@Override
 	public boolean isUsernameIndex(int var1) {
 
 		return false;

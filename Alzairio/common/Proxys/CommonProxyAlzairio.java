@@ -5,20 +5,15 @@ import net.minecraftforge.oredict.OreDictionary;
 
 public class CommonProxyAlzairio {
 
-	public static String Lightning =     "/Alzairio/textures/Lightning.png";
 	public static String Entity =       "/Alzairio/textures/Entity.png";
 	public static String Armour_png =   "/Alzairio/textures/armour.png";
 	public static String Armour2_png =   "/Alzairio/textures/armour2.png";
 	public static String alzairio_png = "/Alzairio/textures/alzairio.png";
 	public static String LandBoat_png = "/Alzairio/textures/LandBoat.png";
-	public static String Items_png =    "/Alzairio/textures/Items.png";
-	public static String Grass_png =    "/Alzairio/textures/Grass.png";
-	public static String AlzaWool =     "/Alzairio/textures/AlzaWool.png";
 	public static String JetPack_png =  "%blur%/Alzairio/textures/Jetpack.png";
 	public static String Logo_png =     "/Alzairio/textures/Logo.png";
 	public static String CrumMeter =    "/Alzairio/textures/Crum.png";
 	public static String container =    "/Alzairio/textures/container.png";
-	public static String HD_Text =      "/Alzairio/textures/HD.png";
 	public  void registerRenderThings()
 	{
 	}

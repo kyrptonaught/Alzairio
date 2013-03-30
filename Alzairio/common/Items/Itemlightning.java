@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Random;
 
 import net.minecraft.client.entity.EntityClientPlayerMP;
-import net.minecraft.entity.ai.EntityLookHelper;
+import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -14,12 +14,8 @@ import net.minecraft.item.EnumAction;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.packet.Packet250CustomPayload;
-import net.minecraft.util.EnumMovingObjectType;
-import net.minecraft.util.MovingObjectPosition;
-import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
 import Alzairio.common.Alzairio;
-import Alzairio.common.Proxys.CommonProxyAlzairio;
 import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.network.PacketDispatcher;
 import cpw.mods.fml.relauncher.Side;
@@ -34,16 +30,17 @@ public class Itemlightning extends Item {
 	    this.bFull3D = true;
 	   
 	}	
+	@Override
 	@SideOnly(Side.CLIENT)
 	public void addInformation(ItemStack par1ItemStack, EntityPlayer playerEntity, List par3List, boolean par4)
 	{
 	par3List.add("Lightning Wand. Increases Crum by 2");//the color code trick works here aswell 
 	}
 	
-	@Override
-	public String getTextureFile() {
-		return CommonProxyAlzairio.Items_png;
-	}
+	 public void updateIcons(IconRegister iconRegister)
+	   {
+      this.iconIndex = iconRegister.registerIcon(Alzairio.modid + ":" + this.getUnlocalizedName());
+  }	
 	@Override
 	public EnumAction getItemUseAction(ItemStack par1ItemStack)
     {

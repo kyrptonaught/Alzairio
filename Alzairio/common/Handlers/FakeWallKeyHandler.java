@@ -13,7 +13,6 @@ import net.minecraft.network.packet.Packet250CustomPayload;
 import org.lwjgl.input.Keyboard;
 
 import Alzairio.common.Block.BlockWall;
-
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.client.registry.KeyBindingRegistry.KeyHandler;
 import cpw.mods.fml.common.FMLCommonHandler;

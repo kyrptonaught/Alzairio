@@ -2,9 +2,6 @@ package Alzairio.common.entity;
 
 import java.util.List;
 
-import cpw.mods.fml.relauncher.Side;
-import cpw.mods.fml.relauncher.SideOnly;
-import Alzairio.common.Proxys.CommonProxyAlzairio;
 import net.minecraft.block.Block;
 import net.minecraft.enchantment.EnchantmentThorns;
 import net.minecraft.entity.Entity;
@@ -13,9 +10,6 @@ import net.minecraft.entity.IProjectile;
 import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.entity.projectile.EntityArrow;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.packet.Packet70GameEvent;
 import net.minecraft.util.AxisAlignedBB;
@@ -24,6 +18,9 @@ import net.minecraft.util.MathHelper;
 import net.minecraft.util.MovingObjectPosition;
 import net.minecraft.util.Vec3;
 import net.minecraft.world.World;
+import Alzairio.common.Proxys.CommonProxyAlzairio;
+import cpw.mods.fml.relauncher.Side;
+import cpw.mods.fml.relauncher.SideOnly;
 
 public class EntityBeam extends Entity implements IProjectile{
         public String texture;
@@ -76,11 +73,11 @@ public class EntityBeam extends Entity implements IProjectile{
 	            this.canBePickedUp = 1;
 	        }
 
-	        this.posY = par2EntityLiving.posY + (double)par2EntityLiving.getEyeHeight() - 0.10000000149011612D;
+	        this.posY = par2EntityLiving.posY + par2EntityLiving.getEyeHeight() - 0.10000000149011612D;
 	        double var6 = par3EntityLiving.posX - par2EntityLiving.posX;
-	        double var8 = par3EntityLiving.posY + (double)par3EntityLiving.getEyeHeight() - 0.699999988079071D - this.posY;
+	        double var8 = par3EntityLiving.posY + par3EntityLiving.getEyeHeight() - 0.699999988079071D - this.posY;
 	        double var10 = par3EntityLiving.posZ - par2EntityLiving.posZ;
-	        double var12 = (double)MathHelper.sqrt_double(var6 * var6 + var10 * var10);
+	        double var12 = MathHelper.sqrt_double(var6 * var6 + var10 * var10);
 
 	        if (var12 >= 1.0E-7D)
 	        {
@@ -91,7 +88,7 @@ public class EntityBeam extends Entity implements IProjectile{
 	            this.setLocationAndAngles(par2EntityLiving.posX + var16, this.posY, par2EntityLiving.posZ + var18, var14, var15);
 	            this.yOffset = 0.0F;
 	            float var20 = (float)var12 * 0.2F;
-	            this.setThrowableHeading(var6, var8 + (double)var20, var10, par4, par5);
+	            this.setThrowableHeading(var6, var8 + var20, var10, par4, par5);
 	        }
 	    }
 
@@ -108,19 +105,20 @@ public class EntityBeam extends Entity implements IProjectile{
 
 	        this.texture = CommonProxyAlzairio.Entity;
 	        this.setSize(0.5F, 0.5F);
-	        this.setLocationAndAngles(par2EntityLiving.posX, par2EntityLiving.posY + (double)par2EntityLiving.getEyeHeight(), par2EntityLiving.posZ, par2EntityLiving.rotationYaw, par2EntityLiving.rotationPitch);
-	        this.posX -= (double)(MathHelper.cos(this.rotationYaw / 180.0F * (float)Math.PI) * 0.16F);
+	        this.setLocationAndAngles(par2EntityLiving.posX, par2EntityLiving.posY + par2EntityLiving.getEyeHeight(), par2EntityLiving.posZ, par2EntityLiving.rotationYaw, par2EntityLiving.rotationPitch);
+	        this.posX -= MathHelper.cos(this.rotationYaw / 180.0F * (float)Math.PI) * 0.16F;
 	        this.posY -= 0.10000000149011612D;
-	        this.posZ -= (double)(MathHelper.sin(this.rotationYaw / 180.0F * (float)Math.PI) * 0.16F);
+	        this.posZ -= MathHelper.sin(this.rotationYaw / 180.0F * (float)Math.PI) * 0.16F;
 	        this.setPosition(this.posX, this.posY, this.posZ);
 	        this.yOffset = 0.0F;
-	        this.motionX = (double)(-MathHelper.sin(this.rotationYaw / 180.0F * (float)Math.PI) * MathHelper.cos(this.rotationPitch / 180.0F * (float)Math.PI));
-	        this.motionZ = (double)(MathHelper.cos(this.rotationYaw / 180.0F * (float)Math.PI) * MathHelper.cos(this.rotationPitch / 180.0F * (float)Math.PI));
-	        this.motionY = (double)(-MathHelper.sin(this.rotationPitch / 180.0F * (float)Math.PI));
+	        this.motionX = -MathHelper.sin(this.rotationYaw / 180.0F * (float)Math.PI) * MathHelper.cos(this.rotationPitch / 180.0F * (float)Math.PI);
+	        this.motionZ = MathHelper.cos(this.rotationYaw / 180.0F * (float)Math.PI) * MathHelper.cos(this.rotationPitch / 180.0F * (float)Math.PI);
+	        this.motionY = (-MathHelper.sin(this.rotationPitch / 180.0F * (float)Math.PI));
 	        this.setThrowableHeading(this.motionX, this.motionY, this.motionZ, par3 * 1.5F, 1.0F);
 	    }
 
-	    protected void entityInit()
+	    @Override
+		protected void entityInit()
 	    {
 	        this.dataWatcher.addObject(16, Byte.valueOf((byte)0));
 	    }
@@ -128,28 +126,30 @@ public class EntityBeam extends Entity implements IProjectile{
 	    /**
 	     * Similar to setArrowHeading, it's point the throwable entity to a x, y, z direction.
 	     */
-	    public void setThrowableHeading(double par1, double par3, double par5, float par7, float par8)
+	    @Override
+		public void setThrowableHeading(double par1, double par3, double par5, float par7, float par8)
 	    {
 	        float var9 = MathHelper.sqrt_double(par1 * par1 + par3 * par3 + par5 * par5);
-	        par1 /= (double)var9;
-	        par3 /= (double)var9;
-	        par5 /= (double)var9;
-	        par1 += this.rand.nextGaussian() * 0.007499999832361937D * (double)par8;
-	        par3 += this.rand.nextGaussian() * 0.007499999832361937D * (double)par8;
-	        par5 += this.rand.nextGaussian() * 0.007499999832361937D * (double)par8;
-	        par1 *= (double)par7;
-	        par3 *= (double)par7;
-	        par5 *= (double)par7;
+	        par1 /= var9;
+	        par3 /= var9;
+	        par5 /= var9;
+	        par1 += this.rand.nextGaussian() * 0.007499999832361937D * par8;
+	        par3 += this.rand.nextGaussian() * 0.007499999832361937D * par8;
+	        par5 += this.rand.nextGaussian() * 0.007499999832361937D * par8;
+	        par1 *= par7;
+	        par3 *= par7;
+	        par5 *= par7;
 	        this.motionX = par1;
 	        this.motionY = par3;
 	        this.motionZ = par5;
 	        float var10 = MathHelper.sqrt_double(par1 * par1 + par5 * par5);
 	        this.prevRotationYaw = this.rotationYaw = (float)(Math.atan2(par1, par5) * 180.0D / Math.PI);
-	        this.prevRotationPitch = this.rotationPitch = (float)(Math.atan2(par3, (double)var10) * 180.0D / Math.PI);
+	        this.prevRotationPitch = this.rotationPitch = (float)(Math.atan2(par3, var10) * 180.0D / Math.PI);
 	        this.ticksInGround = 0;
 	    }
 
-	    @SideOnly(Side.CLIENT)
+	    @Override
+		@SideOnly(Side.CLIENT)
 
 	    /**
 	     * Sets the position and rotation. Only difference from the other one is no bounding on the rotation. Args: posX,
@@ -161,7 +161,8 @@ public class EntityBeam extends Entity implements IProjectile{
 	        this.setRotation(par7, par8);
 	    }
 
-	    @SideOnly(Side.CLIENT)
+	    @Override
+		@SideOnly(Side.CLIENT)
 
 	    /**
 	     * Sets the velocity to the args. Args: x, y, z
@@ -176,7 +177,7 @@ public class EntityBeam extends Entity implements IProjectile{
 	        {
 	            float var7 = MathHelper.sqrt_double(par1 * par1 + par5 * par5);
 	            this.prevRotationYaw = this.rotationYaw = (float)(Math.atan2(par1, par5) * 180.0D / Math.PI);
-	            this.prevRotationPitch = this.rotationPitch = (float)(Math.atan2(par3, (double)var7) * 180.0D / Math.PI);
+	            this.prevRotationPitch = this.rotationPitch = (float)(Math.atan2(par3, var7) * 180.0D / Math.PI);
 	            this.prevRotationPitch = this.rotationPitch;
 	            this.prevRotationYaw = this.rotationYaw;
 	            this.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, this.rotationPitch);
@@ -187,14 +188,15 @@ public class EntityBeam extends Entity implements IProjectile{
 	    /**
 	     * Called to update the entity's position/logic.
 	     */
-	    public void onUpdate()
+	    @Override
+		public void onUpdate()
 	    {
 	        super.onUpdate();
 	       if (this.prevRotationPitch == 0.0F && this.prevRotationYaw == 0.0F)
 	        {
 	            float var1 = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionZ * this.motionZ);
 	            this.prevRotationYaw = this.rotationYaw = (float)(Math.atan2(this.motionX, this.motionZ) * 180.0D / Math.PI);
-	            this.prevRotationPitch = this.rotationPitch = (float)(Math.atan2(this.motionY, (double)var1) * 180.0D / Math.PI);
+	            this.prevRotationPitch = this.rotationPitch = (float)(Math.atan2(this.motionY, var1) * 180.0D / Math.PI);
 	        }
 
 	        int var16 = this.worldObj.getBlockId(this.xTile, this.yTile, this.zTile);
@@ -232,9 +234,9 @@ public class EntityBeam extends Entity implements IProjectile{
 	            else
 	            {
 	                this.inGround = false;
-	                this.motionX *= (double)(this.rand.nextFloat() * 0.2F);
-	                this.motionY *= (double)(this.rand.nextFloat() * 0.2F);
-	                this.motionZ *= (double)(this.rand.nextFloat() * 0.2F);
+	                this.motionX *= this.rand.nextFloat() * 0.2F;
+	                this.motionY *= this.rand.nextFloat() * 0.2F;
+	                this.motionZ *= this.rand.nextFloat() * 0.2F;
 	                this.ticksInGround = 0;
 	                this.ticksInAir = 0;
 	            }
@@ -266,7 +268,7 @@ public class EntityBeam extends Entity implements IProjectile{
 	                if (var10.canBeCollidedWith() && (var10 != this.shootingEntity || this.ticksInAir >= 5))
 	                {
 	                    var11 = 0.3F;
-	                    AxisAlignedBB var12 = var10.boundingBox.expand((double)var11, (double)var11, (double)var11);
+	                    AxisAlignedBB var12 = var10.boundingBox.expand(var11, var11, var11);
 	                    MovingObjectPosition var13 = var12.calculateIntercept(var17, var3);
 
 	                    if (var13 != null)
@@ -295,7 +297,7 @@ public class EntityBeam extends Entity implements IProjectile{
 	                if (var4.entityHit != null)
 	                {
 	                    var20 = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionY * this.motionY + this.motionZ * this.motionZ);
-	                    int var23 = MathHelper.ceiling_double_int((double)var20 * this.damage);
+	                    int var23 = MathHelper.ceiling_double_int(var20 * this.damage);
 
 	                    if (this.getIsCritical())
 	                    {
@@ -335,7 +337,7 @@ public class EntityBeam extends Entity implements IProjectile{
 
 	                                if (var26 > 0.0F)
 	                                {
-	                                    var4.entityHit.addVelocity(this.motionX * (double)this.knockbackStrength * 0.6000000238418579D / (double)var26, 0.1D, this.motionZ * (double)this.knockbackStrength * 0.6000000238418579D / (double)var26);
+	                                    var4.entityHit.addVelocity(this.motionX * this.knockbackStrength * 0.6000000238418579D / var26, 0.1D, this.motionZ * this.knockbackStrength * 0.6000000238418579D / var26);
 	                                }
 	                            }
 
@@ -374,13 +376,13 @@ public class EntityBeam extends Entity implements IProjectile{
 	                    this.zTile = var4.blockZ;
 	                    this.inTile = this.worldObj.getBlockId(this.xTile, this.yTile, this.zTile);
 	                    this.inData = this.worldObj.getBlockMetadata(this.xTile, this.yTile, this.zTile);
-	                    this.motionX = (double)((float)(var4.hitVec.xCoord - this.posX));
-	                    this.motionY = (double)((float)(var4.hitVec.yCoord - this.posY));
-	                    this.motionZ = (double)((float)(var4.hitVec.zCoord - this.posZ));
+	                    this.motionX = ((float)(var4.hitVec.xCoord - this.posX));
+	                    this.motionY = ((float)(var4.hitVec.yCoord - this.posY));
+	                    this.motionZ = ((float)(var4.hitVec.zCoord - this.posZ));
 	                    var20 = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionY * this.motionY + this.motionZ * this.motionZ);
-	                    this.posX -= this.motionX / (double)var20 * 0.05000000074505806D;
-	                    this.posY -= this.motionY / (double)var20 * 0.05000000074505806D;
-	                    this.posZ -= this.motionZ / (double)var20 * 0.05000000074505806D;
+	                    this.posX -= this.motionX / var20 * 0.05000000074505806D;
+	                    this.posY -= this.motionY / var20 * 0.05000000074505806D;
+	                    this.posZ -= this.motionZ / var20 * 0.05000000074505806D;
 	                    this.playSound("random.bowhit", 1.0F, 1.2F / (this.rand.nextFloat() * 0.2F + 0.9F));
 	                    this.inGround = true;
 	                    this.arrowShake = 7;
@@ -397,7 +399,7 @@ public class EntityBeam extends Entity implements IProjectile{
 	            {
 	                for (var9 = 0; var9 < 4; ++var9)
 	                {
-	                    this.worldObj.spawnParticle("portal", this.posX + this.motionX * (double)var9 / 4.0D, this.posY + this.motionY * (double)var9 / 4.0D, this.posZ + this.motionZ * (double)var9 / 4.0D, -this.motionX, -this.motionY + 0.2D, -this.motionZ);
+	                    this.worldObj.spawnParticle("portal", this.posX + this.motionX * var9 / 4.0D, this.posY + this.motionY * var9 / 4.0D, this.posZ + this.motionZ * var9 / 4.0D, -this.motionX, -this.motionY + 0.2D, -this.motionZ);
 	                    
 	                }
 	            }
@@ -408,7 +410,7 @@ public class EntityBeam extends Entity implements IProjectile{
 	            var20 = MathHelper.sqrt_double(this.motionX * this.motionX + this.motionZ * this.motionZ);
 	            this.rotationYaw = (float)(Math.atan2(this.motionX, this.motionZ) * 180.0D / Math.PI);
 
-	            for (this.rotationPitch = (float)(Math.atan2(this.motionY, (double)var20) * 180.0D / Math.PI); this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F)
+	            for (this.rotationPitch = (float)(Math.atan2(this.motionY, var20) * 180.0D / Math.PI); this.rotationPitch - this.prevRotationPitch < -180.0F; this.prevRotationPitch -= 360.0F)
 	            {
 	                ;
 	            }
@@ -438,16 +440,16 @@ public class EntityBeam extends Entity implements IProjectile{
 	                for (int var25 = 0; var25 < 4; ++var25)
 	                {
 	                    var26 = 0.25F;
-	                    this.worldObj.spawnParticle("bubble", this.posX - this.motionX * (double)var26, this.posY - this.motionY * (double)var26, this.posZ - this.motionZ * (double)var26, this.motionX, this.motionY, this.motionZ);
+	                    this.worldObj.spawnParticle("bubble", this.posX - this.motionX * var26, this.posY - this.motionY * var26, this.posZ - this.motionZ * var26, this.motionX, this.motionY, this.motionZ);
 	                }
 
 	                var22 = 0.8F;
 	            }
 
-	            this.motionX *= (double)var22;
-	            this.motionY *= (double)var22;
-	            this.motionZ *= (double)var22;
-	            this.motionY -= (double)var11;
+	            this.motionX *= var22;
+	            this.motionY *= var22;
+	            this.motionZ *= var22;
+	            this.motionY -= var11;
 	            this.setPosition(this.posX, this.posY, this.posZ);
 	            this.doBlockCollisions();
 	        }
@@ -457,7 +459,8 @@ public class EntityBeam extends Entity implements IProjectile{
 	    /**
 	     * (abstract) Protected helper method to write subclass entity data to NBT.
 	     */
-	    public void writeEntityToNBT(NBTTagCompound par1NBTTagCompound)
+	    @Override
+		public void writeEntityToNBT(NBTTagCompound par1NBTTagCompound)
 	    {
 	        par1NBTTagCompound.setShort("xTile", (short)this.xTile);
 	        par1NBTTagCompound.setShort("yTile", (short)this.yTile);
@@ -473,7 +476,8 @@ public class EntityBeam extends Entity implements IProjectile{
 	    /**
 	     * (abstract) Protected helper method to read subclass entity data from NBT.
 	     */
-	    public void readEntityFromNBT(NBTTagCompound par1NBTTagCompound)
+	    @Override
+		public void readEntityFromNBT(NBTTagCompound par1NBTTagCompound)
 	    {
 	        this.xTile = par1NBTTagCompound.getShort("xTile");
 	        this.yTile = par1NBTTagCompound.getShort("yTile");
@@ -501,7 +505,8 @@ public class EntityBeam extends Entity implements IProjectile{
 	    /**
 	     * Called by a player entity when they collide with an entity
 	     */
-	    public void onCollideWithPlayer(EntityPlayer par1EntityPlayer)
+	    @Override
+		public void onCollideWithPlayer(EntityPlayer par1EntityPlayer)
 	    {
 	        if (!this.worldObj.isRemote && this.inGround && this.arrowShake <= 0)
 	        {
@@ -520,12 +525,14 @@ public class EntityBeam extends Entity implements IProjectile{
 	     * returns if this entity triggers Block.onEntityWalking on the blocks they walk on. used for spiders and wolves to
 	     * prevent them from trampling crops
 	     */
-	    protected boolean canTriggerWalking()
+	    @Override
+		protected boolean canTriggerWalking()
 	    {
 	        return false;
 	    }
 
-	    @SideOnly(Side.CLIENT)
+	    @Override
+		@SideOnly(Side.CLIENT)
 	    public float getShadowSize()
 	    {
 	        return 0.0F;
@@ -552,7 +559,8 @@ public class EntityBeam extends Entity implements IProjectile{
 	    /**
 	     * If returns false, the item will not inflict any damage against entities.
 	     */
-	    public boolean canAttackWithItem()
+	    @Override
+		public boolean canAttackWithItem()
 	    {
 	        return false;
 	    }

@@ -1,8 +1,8 @@
 package Alzairio.common.Items;
 
+import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.item.Item;
 import Alzairio.common.Alzairio;
-import Alzairio.common.Proxys.CommonProxyAlzairio;
 
 public class ItemCrumIngot extends Item {
 
@@ -13,9 +13,8 @@ public ItemCrumIngot(int id) {
 		this.setCreativeTab(Alzairio.tabalzairio2);	
 	}	
 
-	@Override
-	public String getTextureFile() {
-	
-	return CommonProxyAlzairio.Items_png;
-	}
+public void updateIcons(IconRegister iconRegister)
+{
+ this.iconIndex = iconRegister.registerIcon(Alzairio.modid + ":" + this.getUnlocalizedName());
+}	
 }

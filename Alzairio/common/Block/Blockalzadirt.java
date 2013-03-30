@@ -1,54 +1,32 @@
 package Alzairio.common.Block;
 
 import net.minecraft.block.BlockSand;
-import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.world.ColorizerGrass;
 import net.minecraft.world.IBlockAccess;
-import Alzairio.common.Proxys.CommonProxyAlzairio;
+import Alzairio.common.Alzairio;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 
 
 public class Blockalzadirt extends BlockSand {
 
-	public Blockalzadirt(int id, int texture) {
-		super(id, texture);
-		this.setCreativeTab(Alzairio.common.Alzairio.tabalzairio);	
+	public Blockalzadirt(int id) {
+		super(id);
+		this.setCreativeTab(Alzairio.tabalzairio);	
 		}
 	
-	@Override
-	public String getTextureFile() {
-		return CommonProxyAlzairio.Grass_png;
-	}
-	 
-	 public int getBlockTextureFromSideAndMetadata(int par1, int par2)
+	
+	@Override 
+	public void registerIcons(IconRegister par1IconRegister)
 	    {
-	        return par1 == 1 ? 0 : (par1 == 0 ? 2 : 3);
+	        this.blockIcon = par1IconRegister.registerIcon(Alzairio.modid + ":" + this.getUnlocalizedName2());
 	    }
+	
 
-	    @SideOnly(Side.CLIENT)
-
-	    /**
-	     * Retrieves the block texture to use based on the display side. Args: iBlockAccess, x, y, z, side
-	     */
-	    public int getBlockTexture(IBlockAccess par1IBlockAccess, int par2, int par3, int par4, int par5)
-	    {
-	        if (par5 == 1)
-	        {
-	            return 0;
-	        }
-	        else if (par5 == 0)
-	        {
-	            return 2;
-	        }
-	        else
-	        {
-	            Material var6 = par1IBlockAccess.getBlockMaterial(par2, par3 + 1, par4);
-	            return var6 != Material.snow && var6 != Material.craftedSnow ? 3 : 68;
-	        }
-	    }
-
-	    @SideOnly(Side.CLIENT)
+	   
+	    @Override
+		@SideOnly(Side.CLIENT)
 	    public int getBlockColor()
 	    {
 	        double var1 = 0.5D;
@@ -56,7 +34,8 @@ public class Blockalzadirt extends BlockSand {
 	        return ColorizerGrass.getGrassColor(var1, var3);
 	    }
 
-	    @SideOnly(Side.CLIENT)
+	    @Override
+		@SideOnly(Side.CLIENT)
 
 	    /**
 	     * Returns the color this block should be rendered. Used by leaves.
@@ -66,7 +45,8 @@ public class Blockalzadirt extends BlockSand {
 	        return this.getBlockColor();
 	    }
 
-	    @SideOnly(Side.CLIENT)
+	    @Override
+		@SideOnly(Side.CLIENT)
 
 	    /**
 	     * Returns a integer with hex for 0xrrggbb with this color multiplied against the blocks color. Note only called
