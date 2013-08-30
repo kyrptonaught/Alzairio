@@ -17,7 +17,7 @@ public class Blockcloudus extends Block{
 	@Override 
 	public void registerIcons(IconRegister par1IconRegister)
 	    {
-	        this.blockIcon = par1IconRegister.registerIcon(Alzairio.modid + ":" + this.getUnlocalizedName2());
+	        this.blockIcon = par1IconRegister.registerIcon(Alzairio.modid + ":" + this.getUnlocalizedName());
 	    }
 	 @Override
 	public AxisAlignedBB getCollisionBoundingBoxFromPool(World par1World, int par2, int par3, int par4)

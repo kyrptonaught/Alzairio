@@ -30,16 +30,11 @@ public class Itemlightning extends Item {
 	    this.bFull3D = true;
 	   
 	}	
-	@Override
-	@SideOnly(Side.CLIENT)
-	public void addInformation(ItemStack par1ItemStack, EntityPlayer playerEntity, List par3List, boolean par4)
-	{
-	par3List.add("Lightning Wand. Increases Crum by 2");//the color code trick works here aswell 
-	}
 	
-	 public void updateIcons(IconRegister iconRegister)
-	   {
-      this.iconIndex = iconRegister.registerIcon(Alzairio.modid + ":" + this.getUnlocalizedName());
+	@Override
+	public void registerIcons(IconRegister iconRegister)
+	{
+      this.itemIcon = iconRegister.registerIcon(Alzairio.modid + ":" + this.getUnlocalizedName());
   }	
 	@Override
 	public EnumAction getItemUseAction(ItemStack par1ItemStack)
@@ -65,9 +60,7 @@ public class Itemlightning extends Item {
 	  double posX =  par4;
       double posy =  par5;
       double posz =  par6; 
-	   Alzairio.Crum++;
-	  //ClientProxyAlzairio.SaveCrumValue();
-	 
+	  
 	 
 	   Random random = new Random();
 	     double PosX = posX;

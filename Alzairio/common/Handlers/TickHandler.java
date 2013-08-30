@@ -6,7 +6,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
 import cpw.mods.fml.client.FMLClientHandler;
 import cpw.mods.fml.common.ITickHandler;
 import cpw.mods.fml.common.TickType;
@@ -74,7 +73,7 @@ public class TickHandler implements ITickHandler{
 			gig.drawTexturedModalRect(5, 200, 0, 0, 47, 47); // Smaller Screen
 			//fr.drawString("C: "+Alzairio.common.Alzairio.Crum, 15, 200,2);
 			gig.drawString(fr,"C: "+Alzairio.common.Alzairio.Crum , 27, 220, 3);
-		
+
 		}
 		//AlzairioLogger.log(Level.INFO, "Size :"+ par1Minecraft.displayHeight);
 		/* FontRenderer var1 = this.mc.fontRenderer;
@@ -95,38 +94,16 @@ public class TickHandler implements ITickHandler{
 
 	public void onTickInGame()
 	{
-		/*	try {
-	        // Create a URL for the desired page
-	        URL url = new URL("http://mc-brikbroz.webs.com/Alzairio%20Mod/test.txt");       
-
-	        // Read all the text returned by the server
-	        BufferedReader in = new BufferedReader(new InputStreamReader(url.openStream()));
-	        String str;
-	        while ((str = in.readLine()) != null) {
-	            str = in.readLine().toString();
-	            System.out.println(str);
-	            // str is one line of text; readLine() strips the newline character(s)
-	        }
-	     //   in.close();
-	    } catch (MalformedURLException e) {
-	    } catch (IOException e) {
-	    } catch (NullPointerException e){
-
-	    }
-		 */
+		
 		EntityPlayer thePlayer = FMLClientHandler.instance().getClient().thePlayer;
-		World theWorld = FMLClientHandler.instance().getClient().theWorld;
-
+		
 		ItemStack itemstack = thePlayer.inventory.armorItemInSlot(2);//Chest
 		ItemStack itemstack2 = thePlayer.inventory.armorItemInSlot(0);//Boots
 		ItemStack itemstack3 = thePlayer.inventory.armorItemInSlot(1);//Legs
 		ItemStack itemstack4 = thePlayer.inventory.armorItemInSlot(3);//Helm
-		if(itemstack2 != null && itemstack2.itemID == Alzairio.common.Init.Items.Boots.itemID){
-		}else 
-			thePlayer.capabilities.setPlayerWalkSpeed(0.1F);
 	}
 
-	public void onWorldTick()  {
+		public void onWorldTick()  {
 
+		}
 	}
-}

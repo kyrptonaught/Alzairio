@@ -1,11 +1,18 @@
 package Alzairio.common.Block;
 
+import static net.minecraftforge.common.ForgeDirection.EAST;
+import static net.minecraftforge.common.ForgeDirection.NORTH;
+import static net.minecraftforge.common.ForgeDirection.SOUTH;
+import static net.minecraftforge.common.ForgeDirection.WEST;
+
 import java.util.Random;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockTorch;
 import net.minecraft.client.renderer.texture.IconRegister;
 import net.minecraft.world.World;
 import Alzairio.common.Alzairio;
+import Alzairio.common.Proxys.ClientProxyAlzairio;
 
 public class BlockAlzTorch extends BlockTorch{
 
@@ -16,11 +23,12 @@ public class BlockAlzTorch extends BlockTorch{
 		this.setLightValue(1.0F);
 		this.setTickRandomly(true);
 	}
+
 	@Override 
 	public void registerIcons(IconRegister par1IconRegister)
-	    {
-	        this.blockIcon = par1IconRegister.registerIcon(Alzairio.modid + ":" + this.getUnlocalizedName2());
-	    }
+	{
+		this.blockIcon = par1IconRegister.registerIcon(Alzairio.modid + ":" + this.getUnlocalizedName());
+	}
 	@Override
 	public int getRenderType()
 	{
@@ -36,10 +44,10 @@ public class BlockAlzTorch extends BlockTorch{
 		double var13 = 0.2199999988079071D;
 		double var15 = 0.27000001072883606D;
 
-		if (var6 == 1)
+/*		if (var6 == 1)
 		{
 			par1World.spawnParticle(par, var7 - var15, var9 + var13, var11, 0.0D, 0.0D, 0.0D);
-			par1World.spawnParticle("portal", var7 - var15, var9 + var13, var11, 0.0D, 0.0D, 0.0D);
+			par1World.spawnParticle("magicCrit", var7 - var15, var9 + var13, var11, 0.0D, 0.0D, 0.0D);
 		}
 		else if (var6 == 2)
 		{
@@ -49,17 +57,20 @@ public class BlockAlzTorch extends BlockTorch{
 		else if (var6 == 3)
 		{
 			par1World.spawnParticle(par, var7, var9 + var13, var11 - var15, 0.0D, 0.0D, 0.0D);
-			par1World.spawnParticle("portal", var7, var9 + var13, var11 - var15, 0.0D, 0.0D, 0.0D);
+			par1World.spawnParticle("magicCrit", var7, var9 + var13, var11 - var15, 0.0D, 0.0D, 0.0D);
 		}
 		else if (var6 == 4)
 		{
 			par1World.spawnParticle(par, var7, var9 + var13, var11 + var15, 0.0D, 0.0D, 0.0D);
-			par1World.spawnParticle("portal", var7, var9 + var13, var11 + var15, 0.0D, 0.0D, 0.0D);
+			par1World.spawnParticle("magicCrit", var7, var9 + var13, var11 + var15, 0.0D, 0.0D, 0.0D);
 		}
 		else
-		{
+		{*/
 			par1World.spawnParticle(par, var7, var9, var11, 0.0D, 0.0D, 0.0D);
-			par1World.spawnParticle("portal", var7, var9, var11, 0.0D, 0.0D, 0.0D);
-		}
+			par1World.spawnParticle("magicCrit", var7, var9, var11, 0.0D, 0.0D, 0.0D);
+			par1World.spawnParticle("magicCrit", var7, var9+1, var11, 0.0D, 0.0D, 0.0D);
+			par1World.spawnParticle("enchantmenttable", var7, var9+2, var11, 0.0D, 0.0D, 0.0D);
+			
+			//}
 	}
 }

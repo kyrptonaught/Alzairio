@@ -14,6 +14,6 @@ public class BlockalzairianOre extends Block{
 	@Override 
 	public void registerIcons(IconRegister par1IconRegister)
 	    {
-	        this.blockIcon = par1IconRegister.registerIcon(Alzairio.modid + ":" + this.getUnlocalizedName2());
+	        this.blockIcon = par1IconRegister.registerIcon(Alzairio.modid + ":" + this.getUnlocalizedName());
 	    }
 }
