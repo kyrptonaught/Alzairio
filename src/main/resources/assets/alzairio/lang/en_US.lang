@@ -1,0 +1,34 @@
+entity.alzairio.EntityFlyingPig.name=Flying Pig
+
+tile.AlzaDirt.name=Alzadirt
+tile.Acid.name=Acid
+tile.Aconitum.name=Aconitum
+tile.Alzairian.name=Alzairian
+tile.AlzairianOre.name=Alzairian Ore
+tile.alzaStone.name=AlzaStone
+tile.AlzLog.name=AlzLog
+tile.AlzLeaf.name=AlzLeaf
+tile.AlzSap.name=AlzSap
+tile.Cloudus.name=Cloudus
+tile.Launcher.name=Launcher
+tile.Speedy.name=Speedy
+tile.speedys.name=Speedy Stairs
+tile.Teleporter.name=Teleporter
+tile.trampoline.name=Trampoline
+tile.AlzTorch.name=AlzTorch
+tile.Alz Compactor.name=Alz Compactor
+tile.Teleporter.name= Teleporter
+tile.GlowingAlz.name= Glowing Alz
+
+item.lightning.name=Lightning Wand
+item.JetPack.name=JetPack
+item.Sword.name=Sword of the Gods
+item.AlzairianIngot.name=Alzairian Ingot
+item.Boots.name=Alz Boots
+item.Chest.name=Alz ChestPlate
+item.Leggings.name=Alz Pants
+item.Helmet.name=Alz Helm
+item.DigWand.name=Wand Of Digging
+item.Bucket.name=Acid Bucket
+item.Sword2.name= Sword of flight
+item.AlzDust.name=AlzDust
